@@ -1,4 +1,4 @@
-package com.example.projectsdtakenlijst.modules;
+package com.example.projectsdtakenlijst.taken.modules;
 
 import java.time.LocalDate;
 
