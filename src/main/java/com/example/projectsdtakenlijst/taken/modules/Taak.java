@@ -1,28 +1,23 @@
 package com.example.projectsdtakenlijst.taken.modules;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class Taak {
-    private static Taak deTaak;
-    public static void setTaak(Taak taak) {
-        deTaak = taak;
-    }
-    public static Taak getTaak() {
-        return deTaak;
-    }
 
     public String naam;
     public String omschrijving;
-    public LocalDate gemaaktTijd;
-    public LocalDate vervalTijd;
+    public String gemaaktTijd;
+    public String vervalTijd;
     public Gebruiker naamGebruiker;
     public String type;
 
-    public Taak(String nm, String oms, LocalDate Gt, LocalDate Vt, String tp) {
+    public Taak(String nm, String oms, String gT, String vT, String tp) {
         naam = nm;
         omschrijving = oms;
-        gemaaktTijd = Gt;
-        vervalTijd = Vt;
+        gemaaktTijd = gT;
+        vervalTijd = vT;
         type = tp;
     }
 
@@ -38,16 +33,16 @@ public class Taak {
     public void setOmschrijving(String oms) {
         omschrijving = oms;
     }
-    public LocalDate getGemaaktTijd() {
+    public String getGemaaktTijd() {
         return gemaaktTijd;
     }
-    public void setGemaaktTijd(LocalDate Gt) {
+    public void setGemaaktTijd(String Gt) {
         gemaaktTijd = Gt;
     }
-    public LocalDate getVervalTijd() {
+    public String getVervalTijd() {
         return vervalTijd;
     }
-    public void setVervalTijd(LocalDate Vt) {
+    public void setVervalTijd(String Vt) {
         vervalTijd = Vt;
     }
     public String getType() {
@@ -56,4 +51,10 @@ public class Taak {
     public void setType(String tp) {
         type = tp;
     }
+    public static String formatDate(LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return date.format(formatter);
+    }
+
+
 }
