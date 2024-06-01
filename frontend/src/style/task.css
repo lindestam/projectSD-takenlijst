@@ -1,0 +1,11 @@
+
+.taak {
+    background-color: #5fa85f;
+    width: 400px;
+    border-radius: 1rem;
+    padding: 1rem;
+}
+.taak>time {
+    color: #5e5e5e;
+    font-size: small;
+}
