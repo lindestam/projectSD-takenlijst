@@ -1,0 +1,19 @@
+dialog {
+    background-color: rgba(253, 114, 149, 0.55);
+}
+
+dialog>time {
+    color: darkgray;
+}
+
+dialog>form {
+    text-align: center;
+}
+
+form>button {
+    background-color: #c2c2ee;
+    color: white;
+    border-radius: 15px;
+    padding: 1rem;
+}
+
