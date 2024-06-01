@@ -1,47 +1,57 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <link rel="stylesheet" href="/style.css"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script type="module" src="/src/main.js"></script>
-    <title>Takenlijst</title>
-  </head>
-  <body>
-    <main>
-      <span id="pagetitle"></span>
-      <p class="taken">taken</p>
-      <form>
-        <button class="addBtn" type="submit">+</button>
-      </form>
-      <button onclick="showContent()">Show hidden content</button>
-      <template id="taak-template">
-        <article id="taakTitle" class="taak">
-          <time dateTime="YYYY-MM-DD">date</time>
-          <h2>taak title</h2>
-          <img alt="sfeer foto" />
-          <p class="description">omschrijving></p>
-          <p class="type">type</p>
-        </article>
-      </template>
-      <script>
-        function showContent() {
-          let temp = document.getElementsByTagName("template")[0];
-          let clon = temp.content.cloneNode(true);
-          document.body.appendChild(clon);
-        }
-      </script>
-      <dialog>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <link rel="stylesheet" href="style.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script type="module" src="src/main.js"></script>
+  <title>Takenlijst</title>
+</head>
+<body>
+<main>
+  <span id="pagetitle"></span>
+  <p class="taken">taken</p>
+  <form>
+    <button class="addBtn" type="submit">+</button>
+  </form>
+
+  <aside class="to-do-taken">
+    <p class="to-do">to-do taken</p>
+    <button onclick="showContent()">Show hidden content</button>
+    <template id="taak-template">
+      <article id="taakTitle" class="taak">
         <time dateTime="YYYY-MM-DD">date</time>
-        <time vervaltijd="YYYY-MM-DD">vervaltijd</time>
-        <p>
-          <button> id="editBtn" alt="aanpassen"</button>
-          <button> id="delBtn"  alt="verwijderen"</button>
-        </p>
-        <p class="description">omschrijving</p>
+        <h2>taak title</h2>
+        <img alt="sfeer foto" />
+        <p class="description">omschrijving></p>
         <p class="type">type</p>
-      </dialog>
-    </main>
-  </body>
+      </article>
+    </template>
+    <script>
+      function showContent() {
+        let temp = document.getElementById("taak-template");
+        let clon = temp.content.cloneNode(true);
+
+        let toDoTaken = document.querySelector('.to-do-taken');
+        toDoTaken.appendChild(clon);
+      }
+
+    </script>
+    <dialog>
+      <time dateTime="YYYY-MM-DD">date</time>
+      <time vervaltijd="YYYY-MM-DD">vervaltijd</time>
+      <p>
+        <button id="editBtn" alt="aanpassen"></button>
+        <button id="delBtn"  alt="verwijderen"></button>
+      </p>
+      <p class="description">omschrijving</p>
+      <p class="type">type</p>
+    </dialog>
+  </aside>
+
+  <aside class="afgevinkte-taken">
+  </aside>
+</main>
+</body>
 </html>
