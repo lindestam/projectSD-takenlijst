@@ -30,11 +30,21 @@ public class alleTaken {
     public void removeTaak(Taak t) {
         taken.remove(t);
     }
-    public void updateTaak(Taak oudeTaak, Taak nieuweTaak) {
-        int index = taken.indexOf(oudeTaak);
-        if (index != -1) {
-            taken.set(index, nieuweTaak);
+    public boolean updateTaak(String taakNaam, Taak nieuweTaak) {
+        for (int i = 0; i < taken.size(); i++) {
+            if (taken.get(i).getNaam().equals(taakNaam)) {
+                nieuweTaak.setNaam(taakNaam);
+                Taak bestaandeTaak = taken.get(i);
+                nieuweTaak.setNaam(bestaandeTaak.getNaam());
+                nieuweTaak.setOmschrijving(bestaandeTaak.getOmschrijving());
+                nieuweTaak.setGemaaktTijd(bestaandeTaak.getGemaaktTijd());
+                nieuweTaak.setVervalTijd(bestaandeTaak.getVervalTijd());
+                nieuweTaak.setType(bestaandeTaak.getType());
+                taken.set(i, nieuweTaak);
+                return true;
+            }
         }
+        return false;
     }
     public String getNaam() {
         return naam;
@@ -45,4 +55,6 @@ public class alleTaken {
     public List<Taak> getAfgevinkteTaken() {
         return Collections.unmodifiableList(afgevinkteTaken);
     }
+
+
 }
