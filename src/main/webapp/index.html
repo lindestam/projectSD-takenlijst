@@ -8,5 +8,39 @@
     <script type="module" crossorigin src="/assets/main-B5Qt9EMX.js"></script>
   </head>
   <body>
+    <main>
+      <span id="pagetitle"></span>
+      <p class="taken">taken</p>
+      <form>
+        <button class="addBtn" type="submit">+</button>
+      </form>
+      <button onclick="showContent()">Show hidden content</button>
+      <template id="taak-template">
+        <article id="taakTitle" class="taak">
+          <time dateTime="YYYY-MM-DD">date</time>
+          <h2>taak title</h2>
+          <img alt="sfeer foto" />
+          <p class="description">omschrijving></p>
+          <p class="type">type</p>
+        </article>
+      </template>
+      <script>
+        function showContent() {
+          let temp = document.getElementsByTagName("template")[0];
+          let clon = temp.content.cloneNode(true);
+          document.body.appendChild(clon);
+        }
+      </script>
+      <dialog>
+        <time dateTime="YYYY-MM-DD">date</time>
+        <time vervaltijd="YYYY-MM-DD">vervaltijd</time>
+        <p>
+          <button> id="editBtn" alt="aanpassen"</button>
+          <button> id="delBtn"  alt="verwijderen"</button>
+        </p>
+        <p class="description">omschrijving</p>
+        <p class="type">type</p>
+      </dialog>
+    </main>
   </body>
 </html>
