@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="/images/vite.svg" />
+    <link rel="stylesheet" href="../../src/style/addForm.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="module" src="../../src/view/addTask.js"></script>
+    <title>Taak toevoegen</title>
+</head>
+<body>
+    <h1>Taak toevoegen</h1>
+    <fieldset>
+        <legend>taak</legend>
+        <label for="datum">gemaakt op:</label>
+        <input type="date" id="datum" name="gemaaktOp"><br><br>
+        <label for="vervalDatum">vervalDatum:</label>
+        <input type="date" id="vervalDatum" name="vervalDatum"><br><br>
+        <label for="naam">naam van taak:</label>
+        <input type="text" id="naam" name="naamTaak"><br><br>
+        <label for="omschrijving">omschrijving: </label>
+        <textarea id="omschrijving" name="omschrijving"></textarea><br><br>
+    </fieldset>
+    <button class="reset" type="reset">annuleer</button>
+    <button class="submit" type="submit">voeg toe</button>
+</body>
+</html>
