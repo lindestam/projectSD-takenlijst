@@ -2,56 +2,48 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <link rel="icon" type="image/svg+xml" href="/images/vite.svg" />
   <link rel="stylesheet" href="style.css"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script type="module" src="src/main.js"></script>
   <title>Takenlijst</title>
 </head>
 <body>
+<header id="pagetitle">Taken</header>
 <main>
-  <span id="pagetitle"></span>
-  <p class="taken">taken</p>
-  <form>
-    <button class="addBtn" type="submit">+</button>
-  </form>
-
-  <aside class="to-do-taken">
-    <p class="to-do">to-do taken</p>
-    <button onclick="showContent()">Show hidden content</button>
-    <template id="taak-template">
-      <article id="taakTitle" class="taak">
-        <time dateTime="YYYY-MM-DD">date</time>
-        <h2>taak title</h2>
-        <img alt="sfeer foto" />
-        <p class="description">omschrijving></p>
-        <p class="type">type</p>
-      </article>
-    </template>
-    <script>
-      function showContent() {
-        let temp = document.getElementById("taak-template");
-        let clon = temp.content.cloneNode(true);
-
-        let toDoTaken = document.querySelector('.to-do-taken');
-        toDoTaken.appendChild(clon);
-      }
-
-    </script>
-    <dialog>
-      <time dateTime="YYYY-MM-DD">date</time>
-      <time vervaltijd="YYYY-MM-DD">vervaltijd</time>
-      <p>
-        <button id="editBtn" alt="aanpassen"></button>
-        <button id="delBtn"  alt="verwijderen"></button>
-      </p>
-      <p class="description">omschrijving</p>
-      <p class="type">type</p>
-    </dialog>
-  </aside>
-
-  <aside class="afgevinkte-taken">
-  </aside>
+  <section class="left-section">
+    <div class="completed-container">
+      <p class="section-title">Afgevinkte Taken</p>
+      <!-- Content for Completed Taken can be added here -->
+    </div>
+  </section>
+  <section class="right-section">
+    <div class="to-do-container">
+      <p class="section-title">To-Do Taken</p>
+      <button onclick="showContent()">Show hidden content</button>
+      <template id="taak-template">
+        <article id="taakTitle" class="taak">
+          <time dateTime="YYYY-MM-DD">date</time>
+          <h2>taak title</h2>
+          <img alt="sfeer foto" />
+          <p class="description">omschrijving</p>
+          <p class="type">type</p>
+        </article>
+      </template>
+    </div>
+  </section>
 </main>
+<form>
+  <button class="addBtn" type="submit" formaction=".src/view/pages/addTrip.html">+</button>
+</form>
+<script>
+  function showContent() {
+    let temp = document.getElementById("taak-template");
+    let clon = temp.content.cloneNode(true);
+
+    let toDoContainer = document.querySelector('.right-section .to-do-container');
+    toDoContainer.appendChild(clon);
+  }
+</script>
 </body>
 </html>
