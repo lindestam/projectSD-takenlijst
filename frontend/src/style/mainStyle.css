@@ -1,6 +1,41 @@
 
+.left-section, .right-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+.to-do-container, .completed-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    background-color: rgba(234, 234, 234, 0.71);
+    margin: 10px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.to-do-container .taak, .completed-container .taak {
+    width: 48%;  /* Each task will take 48% of the container width */
+    box-sizing: border-box;
+}
+
+.section-title {
+    text-align: center;
+    font-family: "Times New Roman", Times, serif;
+    font-style: italic;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
 .addBtn {
     position: fixed;
+    left: 3rem;
     bottom: 3rem;
     font-size: 4rem;
     border-radius: 50%;
@@ -13,36 +48,4 @@
     justify-content: center;
     cursor: pointer;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-#pagetitle {
-    text-align: center;
-    grid-area: title;
-    font-family: "Times New Roman", Times, serif;
-    font-style: italic;
-    font-size: 100px;
-}
-.taken {
-    text-align: center;
-    grid-area: title;
-    font-family: "Times New Roman", Times, serif;
-    font-style: italic;
-    font-size: 30px;
-    height: 700px;
-
-}
-
-aside.to-do-taken {
-    background-color: rgba(234, 234, 234, 0.71);
-    display: grid;
-    grid-template-columns: 1fr 2fr 2fr 2fr;
-    width: 50%;
-    height: 100%;
-    position: absolute;
-    right: 0;
-    top: 120px; /* Adjust top position to make space for the title and form */
-}
-aside.to-do-taken p.to-do {
-    grid-column: 1 / span 4;
-    text-align: center;
 }
