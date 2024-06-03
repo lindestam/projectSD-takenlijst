@@ -20,10 +20,10 @@
   <section class="right-section">
     <div class="to-do-container">
       <p class="section-title">To-Do Taken</p>
-      <button onclick="showContent()">Show hidden content</button>
       <template id="taak-template">
         <article id="taakTitle" class="taak">
-          <time dateTime="YYYY-MM-DD">date</time>
+          <time dateTime="">date</time>
+          <time class="vervaltijd" dateTime="">verval date</time>
           <h2>taak title</h2>
           <img alt="sfeer foto" />
           <p class="description">omschrijving</p>
@@ -34,16 +34,17 @@
   </section>
 </main>
 <form>
-  <button class="addBtn" type="submit" formaction=".src/view/pages/addTrip.html">+</button>
+  <button class="addBtn" type="submit" formaction="public/pages/addTask.html">+</button>
 </form>
-<script>
-  function showContent() {
-    let temp = document.getElementById("taak-template");
-    let clon = temp.content.cloneNode(true);
-
-    let toDoContainer = document.querySelector('.right-section .to-do-container');
-    toDoContainer.appendChild(clon);
-  }
-</script>
+<dialog>
+  <time dateTime="YYYY-MM-DD">date</time>
+  <time vervaltijd="YYYY-MM-DD">vervaltijd</time>
+  <p>
+    <button id="editBtn" alt="aanpassen"></button>
+    <button id="delBtn" alt="verwijderen"></button>
+  </p>
+  <p class="description">omschrijving</p>
+  <p class="type">type</p>
+</dialog>
 </body>
 </html>

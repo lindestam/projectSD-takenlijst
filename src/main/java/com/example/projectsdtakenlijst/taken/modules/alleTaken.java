@@ -33,13 +33,6 @@ public class alleTaken {
     public boolean updateTaak(String taakNaam, Taak nieuweTaak) {
         for (int i = 0; i < taken.size(); i++) {
             if (taken.get(i).getNaam().equals(taakNaam)) {
-                nieuweTaak.setNaam(taakNaam);
-                Taak bestaandeTaak = taken.get(i);
-                nieuweTaak.setNaam(bestaandeTaak.getNaam());
-                nieuweTaak.setOmschrijving(bestaandeTaak.getOmschrijving());
-                nieuweTaak.setGemaaktTijd(bestaandeTaak.getGemaaktTijd());
-                nieuweTaak.setVervalTijd(bestaandeTaak.getVervalTijd());
-                nieuweTaak.setType(bestaandeTaak.getType());
                 taken.set(i, nieuweTaak);
                 return true;
             }
