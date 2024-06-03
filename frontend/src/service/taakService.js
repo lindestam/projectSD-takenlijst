@@ -1,60 +1,91 @@
 
 function getTaken() {
-    let status = undefined;
-    fetch("restservices/taken")
+    return fetch("http://localhost:8080/restservices/taken")
         .then(response => {
-            status = response.status;
-            return response.json();
+            return response.json().then(data => ({
+                status: response.status,
+                body: data
+            }));
         })
-        .then(myJson => {
+        .then(({ status, body }) => {
             if (status === 200) {
-                console.log(myJson);
+                console.log(body);
+                return body;
             } else {
-                console.log(myJson.error);
+                console.error(body.error);
+                return [];
             }
         })
+        .catch(error => {
+            console.error("Error fetching tasks:", error);
+            return [];
+        });
 }
 
+// Function to add a task
 function addTaken(taak) {
-    const url = "http://localhost:8080/restservices/addTaak"
+    const url = "http://localhost:8080/restservices/addTaak";
     const options = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8',
         },
         body: JSON.stringify(taak),
-    }
-    const req = fetch(url, options)
-        .then((response) => {
+    };
+    return fetch(url, options)
+        .then(response => {
             if (!response.ok) {
-                throw new Error(response.status);
+                throw new Error(`HTTP error! Status: ${response.status}`);
             }
             return response.json();
         })
-    return req;
-}
-function updateTaak() {
-    const url = "http://localhost:8080/restservices/update"
-    let options = {
-        method: "PUT",
-        body: JSON.stringify(jsonRequestBody),
-        headers: {'content-type' : 'application/json'}
-    }
-    fetch(url, options)
-        .then(response => response.json())
-        .then(function(myJson){
-            console.log(myJson)
+        .catch(error => {
+            console.error("Error adding task:", error);
         });
 }
-function deleteTaak() {
-    const url = "http://localhost:8080/restservices/delete"+formData.get("naam")
-    let options = {
-            method: "DELETE"
-    }
-    fetch(url, options)
-        .then(function (response){
-            if (response.ok) console.log("task deleted")
-            else if (response.status == 404) console.log("task not found")
-            else console.log("Something else happened" )
+
+// Function to update a task
+function updateTaak(taak) {
+    const url = `http://localhost:8080/restservices/update/${taak.naamTaak}`;
+    const options = {
+        method: "PUT",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(taak),
+    };
+    return fetch(url, options)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
         })
+        .then(result => {
+            console.log(result);
+            return result;
+        })
+        .catch(error => {
+            console.error("Error updating task:", error);
+        });
+}
+
+
+// Function to delete a task
+function deleteTaak(naamTaak) {
+    const url = `http://localhost:8080/restservices/delete/${naamTaak}`;
+    const options = {
+        method: "DELETE",
+    };
+    return fetch(url, options)
+        .then(response => {
+            if (response.ok) {
+                console.log("Task deleted");
+            } else if (response.status === 404) {
+                console.log("Task not found");
+            } else {
+                console.log("Something else happened");
+            }
+        })
+        .catch(error => {
+            console.error("Error deleting task:", error);
+        });
 }
