@@ -31,6 +31,7 @@ public class addTaakResource {
         String vervalDatum = jsonObject.getString("vervalDatum");
         String type = jsonObject.getString("type");
 
+
         List<Taak> taken = alleTaken.getTaak().getTaken();
         for (Taak t : taken) {
             if (t.getNaam().equals(taakNaam)) {
