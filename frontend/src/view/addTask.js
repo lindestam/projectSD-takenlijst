@@ -1,5 +1,3 @@
-
-
 function formTask() {
     let date = document.querySelector("#date").value;
     let vervaldatum = document.querySelector("#vervalDatum").value;
@@ -29,6 +27,6 @@ function add(event) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    let formElement = document.querySelector("form");
+    let formElement = document.querySelector("button");
     formElement.addEventListener("submit", add);
 });

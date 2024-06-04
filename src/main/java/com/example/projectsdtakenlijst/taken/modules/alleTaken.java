@@ -1,6 +1,5 @@
 package com.example.projectsdtakenlijst.taken.modules;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -14,9 +13,9 @@ public class alleTaken {
         return deTaak;
     }
 
-    public String naam;
-    public List<Taak> taken;
-    public List<Taak> afgevinkteTaken;
+    private String naam;
+    private List<Taak> taken;
+    private List<Taak> afgevinkteTaken;
     public alleTaken(String nm) {
         naam = nm;
         taken = new ArrayList<>();
