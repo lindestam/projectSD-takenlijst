@@ -54,7 +54,7 @@ main {
         background-color: lightblue;
     }
     main {
-        background-color: lightyellow;
+        background-color: rgba(233, 253, 242, 0.83);
     }
     .taak {
         background-color: lightgreen;
