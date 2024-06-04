@@ -1,5 +1,5 @@
 
-function getAllTasks(taak) {
+function renderAllTasks(taak) {
     let temp = document.querySelector("#taak-template");
     let clon = temp.content.cloneNode(true);
 
@@ -26,13 +26,13 @@ function getAllTasks(taak) {
 }
 
 // Function to load all tasks
-function getAll() {
+function render() {
     let tasksElement = document.querySelector(".to-do-container");
     getTaken()
         .then(taken => {
             tasksElement.innerHTML = "";
             taken.forEach(taak => {
-                tasksElement.appendChild(getAllTasks(taak));
+                tasksElement.appendChild(renderAllTasks(taak));
             });
         })
         .catch(error => {
@@ -40,7 +40,5 @@ function getAll() {
         });
 }
 
-// Event listener for form submission to add a task
-// Function to show the dialog (stub function for now)
-// Initial load of tasks
 document.addEventListener('DOMContentLoaded', getAll);
+render();

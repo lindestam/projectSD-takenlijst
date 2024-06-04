@@ -8,8 +8,8 @@ export default defineConfig({
                 main: resolve(__dirname, 'index.html')
 // to add more html pages....see FEP1 boilerplate section
 
+            },
         },
+        outDir: "../src/main/webapp/"
     },
-    outDir: "../src/main/webapp/"
-},
 })
