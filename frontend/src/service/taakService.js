@@ -1,4 +1,3 @@
-
 function getTaken() {
     return fetch("http://localhost:8080/restservices/taken")
         .then(response => {

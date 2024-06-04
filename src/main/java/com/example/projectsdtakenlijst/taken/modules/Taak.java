@@ -6,12 +6,12 @@ import java.util.List;
 
 public class Taak {
 
-    public String naam;
-    public String omschrijving;
-    public String gemaaktTijd;
-    public String vervalTijd;
-    public Gebruiker naamGebruiker;
-    public String type;
+    private String naam;
+    private String omschrijving;
+    private String gemaaktTijd;
+    private String vervalTijd;
+    private Gebruiker naamGebruiker;
+    private String type;
 
     public Taak(String nm, String oms, String gT, String vT, String tp) {
         naam = nm;
