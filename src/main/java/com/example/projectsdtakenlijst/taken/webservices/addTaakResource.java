@@ -18,7 +18,7 @@ import java.util.AbstractMap;
 import java.util.List;
 import java.util.Locale;
 
-@Path("addTaak")
+@Path("taken")
 public class addTaakResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
