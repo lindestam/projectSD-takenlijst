@@ -23,15 +23,15 @@ function getTaken() {
 
 // Function to add a task
 function addTaken(taak) {
-    const url = "http://localhost:8080/restservices/addTaak";
+    const url = "http://localhost:8080/restservices/taken";
     const options = {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json;charset=utf-8',
+            'Content-Type': 'application/json',
         },
         body: JSON.stringify(taak),
     };
-    return fetch(url, options)
+        fetch(url, options)
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);

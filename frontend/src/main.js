@@ -1,1 +1,1 @@
-import '.../view/takenlijst.js'
+import './view/takenlijst.js'
