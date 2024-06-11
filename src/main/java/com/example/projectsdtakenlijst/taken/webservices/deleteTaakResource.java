@@ -11,7 +11,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.AbstractMap;
 
-@Path("delete")
+@Path("taken")
 public class deleteTaakResource {
     @DELETE
     @Path("{naam}")
