@@ -1,0 +1,1 @@
+import './view/takenlijst.js'
