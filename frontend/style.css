@@ -1,4 +1,4 @@
-@import url('src/style/task.css');
-@import url('src/style/mainStyle.css');
-@import url('src/style/dialogStyle.css');
-@import url('src/style/pageStyle.css');
+@import url('../src/main/webapp/style/task.css');
+@import url('../src/main/webapp/style/mainStyle.css');
+@import url('../src/main/webapp/style/dialogStyle.css');
+@import url('../src/main/webapp/style/pageStyle.css');

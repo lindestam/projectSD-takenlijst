@@ -1,4 +1,7 @@
+import taakService from "../service/taakService.js"
 
+function showDialog() {
+}
 function renderAllTasks(taak) {
     let temp = document.querySelector("#taak-template");
     let clon = temp.content.cloneNode(true);
@@ -14,21 +17,31 @@ function renderAllTasks(taak) {
 
     let timeElement = clon.querySelector("time");
     timeElement.setAttribute("datetime", taak.gemaaktOp);
+
     const options = {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
     };
-    timeElement.textContent = new Intl.DateTimeFormat(undefined, options).format(new Date(taak.gemaaktOp));
+
+    let date = new Date(taak.gemaaktOp);
+    if (!isNaN(date)) {
+        timeElement.textContent = new Intl.DateTimeFormat(undefined, options).format(date);
+    } else {
+        console.error("Invalid date:", taak.gemaaktOp);
+        timeElement.textContent = "Invalid date";
+    }
+
     let descriptionElement = clon.querySelector(".description");
     descriptionElement.textContent = taak.omschrijving;
+
     return clon;
 }
 
 // Function to load all tasks
 function render() {
     let tasksElement = document.querySelector(".to-do-container");
-    getTaken()
+    taakService.getTaken()
         .then(taken => {
             tasksElement.innerHTML = "";
             taken.forEach(taak => {
@@ -40,5 +53,5 @@ function render() {
         });
 }
 
-document.addEventListener('DOMContentLoaded', getAll);
+document.addEventListener('DOMContentLoaded', render);
 render();

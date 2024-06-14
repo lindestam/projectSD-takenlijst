@@ -20,6 +20,9 @@ function getTaken() {
             return [];
         });
 }
+export default {
+    getTaken
+};
 
 // Function to add a task
 function addTaken(taak) {
