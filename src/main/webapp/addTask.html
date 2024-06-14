@@ -19,6 +19,8 @@
         <input type="text" id="naam" name="naamTaak"><br><br>
         <label for="omschrijving">omschrijving: </label>
         <textarea id="omschrijving" name="omschrijving"></textarea><br><br>
+        <label for="type">type: </label>
+        <input type="text" id="type" name="type">
     </fieldset>
     <button class="reset" type="reset">annuleer</button>
     <button class="submit" type="submit">voeg toe</button>
@@ -28,14 +30,15 @@
         let date = document.querySelector("#date").value;
         let vervaldatum = document.querySelector("#vervalDatum").value;
         let naam = document.querySelector("#naam").value;
-        let beschrijving = document.querySelector("#omschrijving").value;
+        let omschrijving = document.querySelector("#omschrijving").value;
+        let type= document.querySelector("#type").value;
 
         return {
-            gemaaktOp: date,
+            datum: date,
             vervalDatum: vervaldatum,
             taak: naam,
-            omschrijving: beschrijving,
-            type: "default"  // Assuming there is a default type for the task
+            omschrijving: omschrijving,
+            type: type // Assuming there is a default type for the task
         };
     }
 
@@ -47,7 +50,7 @@
         addTaken(task)
             .then((result) => {
                 console.log("Resultaat van toevoegen taak:", result);
-                window.location.href = "";
+                window.location.href = "";  // Redirect after successful task addition
             })
             .catch((error) => {
                 console.error("Error adding task:", error);
@@ -71,6 +74,7 @@
                 return response.json();
             });
     }
+
     function cancel(event) {
         event.preventDefault();
         window.location.href = "";  // Redirect to main page
