@@ -39,12 +39,11 @@ public class takenResource {
     public Response voegAfgevinkteTaakToe(@PathParam("name")String name) {
         alleTaken taak = alleTaken.getTaak();
         List<Taak> taken = taak.getTaken();
-        List<Taak> afgevinkteTaken = taak.getAfgevinkteTaken();
 
         for (Taak t : taken) {
             if (t.getNaam().equals(name)) {
                 taken.remove(t);
-                afgevinkteTaken.add(t);
+                taak.voegAfgevinkteTaakToe(t);
                 return Response.ok(t).build();
             }
         }

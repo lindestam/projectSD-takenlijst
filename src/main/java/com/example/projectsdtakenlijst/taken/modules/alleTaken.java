@@ -38,11 +38,15 @@ public class alleTaken {
         }
         return false;
     }
+    public void voegAfgevinkteTaakToe(Taak taak) {
+        afgevinkteTaken.add(taak);
+    }
+
     public String getNaam() {
         return naam;
     }
     public List<Taak> getTaken() {
-        return Collections.unmodifiableList(taken);
+        return taken;
     }
     public List<Taak> getAfgevinkteTaken() {
         return Collections.unmodifiableList(afgevinkteTaken);
