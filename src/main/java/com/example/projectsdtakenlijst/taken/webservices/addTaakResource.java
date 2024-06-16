@@ -25,24 +25,11 @@ public class addTaakResource {
         JsonReader jsonReader = Json.createReader(new StringReader(requestBody));
         JsonObject jsonObject = jsonReader.readObject();
 
-        JsonString taakJsonString = jsonObject.getJsonString("taak");
-        JsonString omschrijvingJsonString = jsonObject.getJsonString("omschrijving");
-        JsonString datumJsonString = jsonObject.getJsonString("datum");
-        JsonString vervalDatumJsonString = jsonObject.getJsonString("vervalDatum");
-        JsonString typeJsonString = jsonObject.getJsonString("type");
-
-        // Check if any of the required fields are null
-        if (taakJsonString == null || omschrijvingJsonString == null || datumJsonString == null ||
-                vervalDatumJsonString == null || typeJsonString == null) {
-            var error = new AbstractMap.SimpleEntry<>("error", "Missing required fields!");
-            return Response.status(400).entity(error).build();
-        }
-
-        String taakNaam = taakJsonString.getString();
-        String omschrijving = omschrijvingJsonString.getString();
-        String datum = datumJsonString.getString();
-        String vervalDatum = vervalDatumJsonString.getString();
-        String type = typeJsonString.getString();
+        String taakNaam = jsonObject.getString("taak");
+        String omschrijving = jsonObject.getString("omschrijving");
+        String datum = jsonObject.getString("datum");
+        String vervalDatum = jsonObject.getString("vervalDatum");
+        String type = jsonObject.getString("type");
 
         // Check if the fields are empty
         if (taakNaam.isEmpty() || omschrijving.isEmpty() || datum.isEmpty() || vervalDatum.isEmpty() || type.isEmpty()) {

@@ -48,6 +48,7 @@ public class PersistenceManager {
             System.out.println(e.getMessage());
         }
     }
+
     private static void saveTasksToFile(String fileName, List<Taak> taken) {
         Path dataDirectoryPath = Paths.get(DATA_DIRECTORY);
         Path dataFilePath = Paths.get(fileName);

@@ -36,7 +36,7 @@ public class takenResource {
     @PUT
     @Path("afgevinkt/{name}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response voegAfgevinkteTaakToe(@PathParam("name")String name) {
+    public Response voegAfgevinkteTaak(@PathParam("name")String name) {
         alleTaken taak = alleTaken.getTaak();
         List<Taak> taken = taak.getTaken();
 

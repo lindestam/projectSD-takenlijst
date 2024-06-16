@@ -13,9 +13,9 @@ public class alleTaken {
         return deTaak;
     }
 
-    private String naam;
-    private List<Taak> taken;
-    private List<Taak> afgevinkteTaken;
+    private final String naam;
+    private final List<Taak> taken;
+    private final List<Taak> afgevinkteTaken;
     public alleTaken(String nm) {
         naam = nm;
         taken = new ArrayList<>();
@@ -40,6 +40,7 @@ public class alleTaken {
     }
     public void voegAfgevinkteTaakToe(Taak taak) {
         afgevinkteTaken.add(taak);
+        taken.remove(taak); // Verwijder de taak ook uit de normale takenlijst
     }
 
     public String getNaam() {
