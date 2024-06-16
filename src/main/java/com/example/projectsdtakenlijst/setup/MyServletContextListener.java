@@ -26,5 +26,6 @@ public class MyServletContextListener implements ServletContextListener {
 
         alleTaken takenLijst = alleTaken.getTaak();
         PersistenceManager.saveTasksToCSV(takenLijst);
+        PersistenceManager.saveAfgevinkteTasksToCSV(takenLijst);
     }
 }
