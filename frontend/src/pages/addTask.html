@@ -1,90 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <link rel="icon" type="image/svg+xml" href="/images/vite.svg" />
-    <link rel="stylesheet" href="../../../src/main/webapp/style/addForm.css"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script type="module" src="../view/addTask.js"></script>
-    <title>Taak toevoegen</title>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/images/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taak toevoegen</title>
 </head>
 <body>
-    <h1>Taak toevoegen</h1>
-    <form id="taakInformatie">
-        <fieldset>
-            <legend>taak</legend>
-            <label for="date">gemaakt op:</label>
-            <input type="date" id="date" name="gemaaktOp"><br><br>
-            <label for="vervalDatum">vervalDatum:</label>
-            <input type="date" id="vervalDatum" name="vervalDatum"><br><br>
-            <label for="naam">naam van taak:</label>
-            <input type="text" id="naam" name="naamTaak"><br><br>
-            <label for="omschrijving">omschrijving: </label>
-            <textarea id="omschrijving" name="omschrijving"></textarea><br><br>
-        </fieldset>
-        <button class="reset" type="reset">annuleer</button>
-        <button class="submit" type="submit">voeg toe</button>
-    </form>
-    <script>
-    function formTask() {
-        let date = document.querySelector("#date").value;
-        let vervaldatum = document.querySelector("#vervalDatum").value;
-        let naam = document.querySelector("#naam").value;
-        let beschrijving = document.querySelector("#omschrijving").value;
+<h1>Taak toevoegen</h1>
+<form id="taakInformatie">
+  <fieldset>
+    <legend>taak</legend>
+    <label for="date">gemaakt op:</label>
+    <input type="date" id="date" name="gemaaktOp"><br><br>
+    <label for="vervalDatum">vervalDatum:</label>
+    <input type="date" id="vervalDatum" name="vervalDatum"><br><br>
+    <label for="naam">naam van taak:</label>
+    <input type="text" id="naam" name="naamTaak"><br><br>
+    <label for="omschrijving">omschrijving: </label>
+    <textarea id="omschrijving" name="omschrijving"></textarea><br><br>
+    <label for="type">type: </label>
+    <input type="text" id="type" name="type">
+  </fieldset>
+  <button class="reset" type="reset">annuleer</button>
+  <button class="submit" type="submit">voeg toe</button>
+</form>
+<script>
+  function formTask() {
+    let date = document.querySelector("#date").value;
+    let vervaldatum = document.querySelector("#vervalDatum").value;
+    let naam = document.querySelector("#naam").value;
+    let omschrijving = document.querySelector("#omschrijving").value;
+    let type= document.querySelector("#type").value;
 
-        return {
-            gemaaktOp: date,
-            vervalDatum: vervaldatum,
-            taak: naam,
-            omschrijving: beschrijving,
-            type: "default"  // Assuming there is a default type for the task
-        };
-    }
+    return {
+      datum: date,
+      vervalDatum: vervaldatum,
+      taak: naam,
+      omschrijving: omschrijving,
+      type: type // Assuming there is a default type for the task
+    };
+  }
 
-    function add(event) {
-        event.preventDefault();
-        let task = formTask();
-        console.log("Verzonden taak:", task);
+  function add(event) {
+    event.preventDefault();
+    let task = formTask();
+    console.log("Verzonden taak:", task);
 
-        addTaken(task)
+    addTaken(task)
             .then((result) => {
-                console.log("Resultaat van toevoegen taak:", result);
-                window.location.href = "/";
+              console.log("Resultaat van toevoegen taak:", result);
+              window.location.href = "";  // Redirect after successful task addition
             })
             .catch((error) => {
-                console.error("Error adding task:", error);
+              console.error("Error adding task:", error);
             });
-    }
+  }
 
-    function addTaken(task) {
-        let url = "http://localhost:8080/restservices/addTaken";
-        const options = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(task),
-        };
-        return fetch(url, options)
+  function addTaken(task) {
+    let url = "http://localhost:8080/restservices/addTaken";
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(task),
+    };
+    return fetch(url, options)
             .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.json();
+              if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+              }
+              return response.json();
             });
-    }
-    function cancel(event) {
-        event.preventDefault();
-        window.location.href = "/";  // Redirect to main page
-    }
+  }
 
-    document.addEventListener("DOMContentLoaded", () => {
-        let formElement = document.querySelector(".submit");
-        formElement.addEventListener("click", add);
+  function cancel(event) {
+    event.preventDefault();
+    window.location.href = "index.html";  // Redirect to main page
+  }
 
-        let resetButton = document.querySelector(".reset");
-        resetButton.addEventListener("click", cancel);
-    });
-    </script>
+  document.addEventListener("DOMContentLoaded", () => {
+    let formElement = document.querySelector(".submit");
+    formElement.addEventListener("click", add);
+
+    let resetButton = document.querySelector(".reset");
+    resetButton.addEventListener("click", cancel);
+  });
+</script>
 </body>
 </html>
