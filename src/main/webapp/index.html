@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/images/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Takennlijst</title>
+  <script type="module" crossorigin src="/assets/main-vM3avwW_.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/main-CHJw6ADv.css">
+</head>
+<body>
+<header id="pagetitle">Taken</header>
+<main>
+  <section class="left-section">
+    <div class="completed-container">
+      <p class="section-title">Afgevinkte Taken</p>
+      <!-- Content for Completed Taken can be added here -->
+    </div>
+  </section>
+  <section class="right-section">
+    <div class="to-do-container">
+      <p class="section-title">To-Do Taken</p>
+      <template id="taak-template">
+        <article id="taakTitle" class="taak">
+          <time dateTime="">date</time>
+          <time class="vervaltijd" dateTime="">verval date</time>
+          <h2 class="name">taak title</h2>
+          <p class="description">omschrijving</p>
+          <p class="type">type</p>
+        </article>
+      </template>
+    </div>
+  </section>
+</main>
+<form>
+  <button class="addBtn" type="submit" formaction="/src/pages/addTask.html">+</button>
+</form>
+<dialog>
+  <time dateTime="YYYY-MM-DD">date</time>
+  <time vervaltijd="YYYY-MM-DD">vervaltijd</time>
+  <p>
+    <button id="editBtn" alt="aanpassen"></button>
+    <button id="delBtn" alt="verwijderen"></button>
+  </p>
+  <p class="description">omschrijving</p>
+  <p class="type">type</p>
+</dialog>
+</body>
+</html>
