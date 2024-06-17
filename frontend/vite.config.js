@@ -5,7 +5,8 @@ export default defineConfig({
         sourcemap: true,
         rollupOptions:{
             input: {
-                main: resolve(__dirname, 'index.html')
+                main: resolve(__dirname, 'index.html'),
+                addTask: resolve(__dirname, 'pages/addTask.html')
 // to add more html pages....see FEP1 boilerplate section
 
             },
