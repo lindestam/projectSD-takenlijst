@@ -7,7 +7,6 @@ function renderAllTasks(taak) {
 
     if (!temp) {
         console.error("Template element #T-template not found.");
-        return document.createElement('div'); // Return a dummy node or handle the error
     }
 
     let clon = temp.content.cloneNode(true);

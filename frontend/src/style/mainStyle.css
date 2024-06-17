@@ -6,20 +6,16 @@
     align-items: center;
     box-sizing: border-box;
     padding: 20px;
-}
-
-.to-do-container, .completed-container {
-    display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
     width: 100%;
     background-color: rgba(234, 234, 234, 0.71);
     margin: 10px;
-    padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
 
 .to-do-container .taak, .completed-container .taak {
     width: 48%;  /* Each task will take 48% of the container width */
