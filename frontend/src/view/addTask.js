@@ -1,3 +1,4 @@
+import { taakService } from '../service/taakService.js';
 function formTask() {
     let date = document.querySelector("#date").value;
     let vervaldatum = document.querySelector("#vervalDatum").value;
@@ -17,7 +18,7 @@ function add(event) {
     let task = formTask();
     console.log(task);
 
-    addTaken(task)
+    taakService.addTaken(task)
         .then((result) => {
             window.location.href = "/";
         })
@@ -26,7 +27,15 @@ function add(event) {
         });
 }
 
+function cancel(event) {
+    event.preventDefault();
+    window.location.href = "index.html";  // Redirect to main page
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-    let formElement = document.querySelector("button");
-    formElement.addEventListener("submit", add);
+    let formElement = document.querySelector(".submit");
+    formElement.addEventListener("click", add);
+
+    let resetButton = document.querySelector(".reset");
+    resetButton.addEventListener("click", cancel);
 });
