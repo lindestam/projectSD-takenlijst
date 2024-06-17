@@ -1,3 +1,4 @@
+
 function getTaken() {
     return fetch("http://localhost:8080/restservices/taken")
         .then(response => {
@@ -42,6 +43,7 @@ function addTaken(taak) {
             console.error("Error adding task:", error);
         });
 }
+
 
 // Function to update a task
 function updateTaak(taak) {
@@ -88,3 +90,7 @@ function deleteTaak(naamTaak) {
             console.error("Error deleting task:", error);
         });
 }
+export const taakService = {
+    getTaken,
+    addTaken
+};
