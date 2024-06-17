@@ -3,13 +3,19 @@ function showDialog() {
 
 }
 function renderAllTasks(taak) {
-    let temp = document.querySelector("#taak-template");
+    let temp = document.querySelector("#T-template");
+
+    if (!temp) {
+        console.error("Template element #T-template not found.");
+        return document.createElement('div'); // Return a dummy node or handle the error
+    }
+
     let clon = temp.content.cloneNode(true);
 
     let articleElement = clon.querySelector("#taakTitle");
     articleElement.addEventListener('click', showDialog);
 
-    let h2Element = clon.querySelector("h2");
+    let h2Element = clon.querySelector(".name");
     h2Element.textContent = taak.naamTaak || 'No Title';
 
     let vervaltimeElement = clon.querySelector("time.vervaltijd");
@@ -31,7 +37,6 @@ function renderAllTasks(taak) {
 
     return clon;
 }
-
 // Function to load all tasks
 function render() {
     let tasksElement = document.querySelector(".to-do-container");
