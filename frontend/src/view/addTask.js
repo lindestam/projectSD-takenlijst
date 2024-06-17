@@ -15,11 +15,10 @@ function formTask() {
 function add(event) {
     event.preventDefault();
     let task = formTask();
-    console.log("Verzonden taak:", task);
+    console.log(task);
 
     addTaken(task)
         .then((result) => {
-            console.log("Resultaat van toevoegen taak:", result);
             window.location.href = "/";
         })
         .catch((error) => {
@@ -28,6 +27,6 @@ function add(event) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    let formElement = document.querySelector(".submit");
+    let formElement = document.querySelector("button");
     formElement.addEventListener("submit", add);
 });
