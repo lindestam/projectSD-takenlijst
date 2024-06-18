@@ -5,10 +5,12 @@ function showDialog() {
 }
 
 function renderAllTasks(taak) {
-    let temp = document.getElementById("taskTemplate");
+    let temp = document.querySelector("#taskTemplate");
+    let div = document.querySelector(".to-do-container");
 
     if (!temp) {
         console.error("Template element not found.");
+        return;
     }
 
     let clon = temp.content.cloneNode(true);
@@ -21,6 +23,7 @@ function renderAllTasks(taak) {
 
     let vervaltimeElement = clon.querySelector("time.vervaltijd");
     vervaltimeElement.setAttribute("datetime", taak.vervalDatum || '');
+    vervaltimeElement.textContent = taak.vervalDatum || 'No Expiry Date';
 
     let timeElement = clon.querySelector("time");
     timeElement.setAttribute("datetime", taak.gemaaktOp || '');
@@ -36,14 +39,14 @@ function renderAllTasks(taak) {
     let descriptionElement = clon.querySelector(".description");
     descriptionElement.textContent = taak.omschrijving || 'No Description';
 
-    return clon;
+    div.appendChild(clon);
 }
 
 function render() {
-    let tasksElement = document.querySelector(".right-section");
+    let tasksElement = document.querySelector(".to-do-container");
 
     if (!tasksElement) {
-        console.error("Element with class 'right-section' not found in the DOM.");
+        console.error("Element with class 'to-do-container' not found in the DOM.");
         return;
     }
 
@@ -52,7 +55,7 @@ function render() {
             tasksElement.innerHTML = ""; // Clear existing content
             taken.forEach(taak => {
                 if (taak) {
-                    tasksElement.appendChild(renderAllTasks(taak));
+                    renderAllTasks(taak);
                 } else {
                     console.warn('Encountered a null task object');
                 }
@@ -64,4 +67,3 @@ function render() {
 }
 
 document.addEventListener('DOMContentLoaded', render);
-render();
