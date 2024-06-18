@@ -1,17 +1,19 @@
 import { taakService } from '../service/taakService.js';
-function showDialog() {
 
+function showDialog() {
+    // Placeholder for showDialog functionality if needed
 }
+
 function renderAllTasks(taak) {
-    let temp = document.querySelector("#T-template");
+    let temp = document.getElementById("taskTemplate");
 
     if (!temp) {
-        console.error("Template element #T-template not found.");
+        console.error("Template element not found.");
     }
 
     let clon = temp.content.cloneNode(true);
 
-    let articleElement = clon.querySelector("#taakTitle");
+    let articleElement = clon.querySelector(".taak");
     articleElement.addEventListener('click', showDialog);
 
     let h2Element = clon.querySelector(".name");
@@ -36,14 +38,19 @@ function renderAllTasks(taak) {
 
     return clon;
 }
-// Function to load all tasks
+
 function render() {
-    let tasksElement = document.querySelector(".to-do-container");
+    let tasksElement = document.querySelector(".right-section");
+
+    if (!tasksElement) {
+        console.error("Element with class 'right-section' not found in the DOM.");
+        return;
+    }
+
     taakService.getTaken()
         .then(taken => {
-            tasksElement.innerHTML = "";
+            tasksElement.innerHTML = ""; // Clear existing content
             taken.forEach(taak => {
-                // Check if 'taak' is not null before rendering
                 if (taak) {
                     tasksElement.appendChild(renderAllTasks(taak));
                 } else {
