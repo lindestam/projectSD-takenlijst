@@ -4,72 +4,62 @@ function showDialog() {
     // Placeholder for showDialog functionality if needed
 }
 
-function renderAllTasks(taak) {
-    let temp = document.querySelector("#taskTemplate");
-    let div = document.querySelector(".to-do-container");
-
-    if (!temp) {
-        console.error("Template element not found!!.");
-        return;
-    }
-
-    let clon = temp.content.cloneNode(true);
-
-    let articleElement = clon.querySelector(".taak");
-    articleElement.addEventListener('click', showDialog);
-
-    let h2Element = clon.querySelector(".name");
-    h2Element.textContent = taak.naamTaak || 'No Title';
-
-    let vervaltimeElement = clon.querySelector("time.vervaltijd");
-    vervaltimeElement.setAttribute("datetime", taak.vervalDatum || '');
-    vervaltimeElement.textContent = taak.vervalDatum || 'No Expiry Date';
-
-    let timeElement = clon.querySelector("time:not(.vervaltijd)");
-    timeElement.setAttribute("datetime", taak.gemaaktOp || '');
-    const options = {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-    };
-    timeElement.textContent = taak.gemaaktOp
-        ? new Intl.DateTimeFormat(undefined, options).format(new Date(taak.gemaaktOp))
-        : 'No Date';
-
-    let descriptionElement = clon.querySelector(".description");
-    descriptionElement.textContent = taak.omschrijving || 'No Description';
-
-    div.appendChild(clon);
+function deleteTask() {
+    let buttonElement = document.querySelector('.delBtn')
+        buttonElement.forEach(button => {
+        button.addEventListener('click', function() {
+            const taakName = this.closest('.taak').querySelector('.name').textContent;
+            taakService.deleteTaak(taakName)
+        });
+    });
 }
-
 function render() {
     let tasksElement = document.querySelector(".to-do-container");
+    let taskTemplate = document.getElementById("taskTemplate");
 
-    if (!tasksElement) {
-        console.error("Element with class 'to-do-container' not found in the DOM.");
+    if (!tasksElement || !taskTemplate) {
+        console.error("Element with class 'to-do-container' or template not found in the DOM.");
         return;
     }
 
     taakService.getTaken()
         .then(taken => {
             tasksElement.innerHTML = ""; // Clear existing content
+
             taken.forEach(taak => {
-                if (taak) {
-                    renderAllTasks(taak);
-                } else {
-                    console.warn('Encountered a null task object');
-                }
+                let clone = taskTemplate.content.cloneNode(true);
+
+                let gemaaktOpElement = clone.querySelector(".gemaaktOp");
+                gemaaktOpElement.setAttribute("datetime", taak.gemaaktOp || '');
+                gemaaktOpElement.textContent = taak.gemaaktOp
+                    ? new Date(taak.gemaaktOp).toLocaleDateString('nl-NL')
+                    : 'Geen datum';
+
+                let vervaltimeElement = clone.querySelector(".vervaltijd");
+                vervaltimeElement.setAttribute("datetime", taak.vervalDatum || '');
+                vervaltimeElement.textContent = taak.vervalDatum
+                    ? new Date(taak.vervalDatum).toLocaleDateString('nl-NL')
+                    : 'Geen vervaldatum';
+
+                let nameElement = clone.querySelector(".name");
+                console.log("Task name:", taak.naam); // Log de naam van de taak om te controleren of deze aanwezig is
+                nameElement.textContent = taak.naam || 'Geen titel';
+
+                let descriptionElement = clone.querySelector(".description");
+                descriptionElement.textContent = taak.omschrijving || 'Geen omschrijving';
+
+                let typeElement = clone.querySelector(".type");
+                typeElement.textContent = taak.type || 'Geen type';
+
+                tasksElement.appendChild(clone);
             });
         })
         .catch(error => {
-            console.error("Error getting all tasks:", error);
+            console.error("Error rendering tasks:", error);
         });
 }
 
-function showContent() {
-    render();
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    // Initial rendering or any other setup can go here
+document.addEventListener("DOMContentLoaded", () => {
+    let button = document.querySelector("#takenZien");
+    button.addEventListener("click", render);
 });

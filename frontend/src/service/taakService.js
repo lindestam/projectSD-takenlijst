@@ -71,8 +71,8 @@ function updateTaak(taak) {
 
 
 // Function to delete a task
-function deleteTaak(naamTaak) {
-    const url = `http://localhost:8080/restservices/delete/${naamTaak}`;
+function deleteTaak(naam) {
+    const url = `http://localhost:8080/restservices/delete/${naam}`;
     const options = {
         method: "DELETE",
     };
@@ -92,5 +92,6 @@ function deleteTaak(naamTaak) {
 }
 export const taakService = {
     getTaken,
-    addTaken
+    addTaken,
+    deleteTaak
 };

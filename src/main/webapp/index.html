@@ -5,7 +5,8 @@
   <link rel="icon" type="image/svg+xml" href="/images/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Takennlijst</title>
-  <link rel="stylesheet" crossorigin href="/assets/main-C_uYZbBK.css">
+  <script type="module" crossorigin src="/assets/main-BecHf9tg.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/main-BujZnV_m.css">
 </head>
 <body>
 <header id="pagetitle">Taken</header>
@@ -19,7 +20,7 @@
   <section class="right-section">
     <p class="section-title">To-Do Taken</p>
     <div class="to-do-container">
-      <button onclick="render()">Toon taken</button>
+      <button id="takenZien">Toon taken</button>
       <template id="taskTemplate">
         <article class="taak">
           <time class="gemaaktOp" datetime="">Datum</time>
@@ -27,9 +28,9 @@
           <p class="name">Taak titel</p>
           <p class="description">Omschrijving</p>
           <p class="type">Type</p>
-          <div>
+          <div class="actions">
             <input type="checkbox" id="aanvinken" name="completed">
-            <button type="reset" id="delBtn" value="delete" ></button>
+            <button type="button" id="delBtn">Delete</button>
           </div>
         </article>
       </template>
@@ -48,74 +49,6 @@
   <p class="description">Omschrijving</p>
   <p class="type">Type</p>
 </dialog>
-<script>
-  function getTaken() {
-    return fetch("http://localhost:8080/restservices/taken")
-            .then(response => {
-              if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-              }
-              return response.json();
-            })
-            .then(taken => {
-              return taken;
-            })
-            .catch(error => {
-              console.error("Error fetching tasks:", error);
-              return [];
-            });
-  }
 
-  function render() {
-    let tasksElement = document.querySelector(".to-do-container");
-    let taskTemplate = document.getElementById("taskTemplate");
-
-    if (!tasksElement || !taskTemplate) {
-      console.error("Element with class 'to-do-container' or template not found in the DOM.");
-      return;
-    }
-
-    getTaken()
-            .then(taken => {
-              tasksElement.innerHTML = ""; // Clear existing content
-
-              taken.forEach(taak => {
-                let clone = taskTemplate.content.cloneNode(true);
-
-                let gemaaktOpElement = clone.querySelector(".gemaaktOp");
-                gemaaktOpElement.setAttribute("datetime", taak.gemaaktOp || '');
-                gemaaktOpElement.textContent = taak.gemaaktOp
-                        ? new Date(taak.gemaaktOp).toLocaleDateString('nl-NL')
-                        : 'Geen datum';
-
-                let vervaltimeElement = clone.querySelector(".vervaltijd");
-                vervaltimeElement.setAttribute("datetime", taak.vervalDatum || '');
-                vervaltimeElement.textContent = taak.vervalDatum
-                        ? new Date(taak.vervalDatum).toLocaleDateString('nl-NL')
-                        : 'Geen vervaldatum';
-
-                let nameElement = clone.querySelector(".name");
-                console.log("Task name:", taak.naam); // Log de naam van de taak om te controleren of deze aanwezig is
-                nameElement.textContent = taak.naam || 'Geen titel';
-
-                let descriptionElement = clone.querySelector(".description");
-                descriptionElement.textContent = taak.omschrijving || 'Geen omschrijving';
-
-                let typeElement = clone.querySelector(".type");
-                typeElement.textContent = taak.type || 'Geen type';
-
-                tasksElement.appendChild(clone);
-              });
-            })
-            .catch(error => {
-              console.error("Error rendering tasks:", error);
-            });
-  }
-
-  document.addEventListener("DOMContentLoaded", () => {
-    let button = document.querySelector("button");
-    button.addEventListener("click", render);
-  });
-</script>
 </body>
 </html>
