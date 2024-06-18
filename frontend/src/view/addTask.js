@@ -2,13 +2,13 @@ import { taakService } from '../service/taakService.js';
 function formTask() {
     let date = document.querySelector("#date").value;
     let vervaldatum = document.querySelector("#vervalDatum").value;
-    let naam = document.querySelector("#naam").value;
+    let taakNaam = document.querySelector("#naam").value;
     let beschrijving = document.querySelector("#omschrijving").value;
 
     return {
         gemaaktOp: date,
         vervaldatum: vervaldatum,
-        naamTaak: naam,
+        naam: taakNaam,
         omschrijving: beschrijving
     };
 }

@@ -9,24 +9,24 @@
     justify-content: center;
     gap: 10px;
     width: 100%;
-    background-color: rgba(234, 234, 234, 0.71);
+    background-color: rgba(240, 241, 240, 0.71);
     margin: 10px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.to-do-container .completed-container{
+.to-do-container .completed-container {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    justify-content: space-between; /* Verdeel de ruimte tussen de taken */
+    justify-content: space-between;
 }
 
-.to-do-container .taak .completed-container .taak{
-    width: calc(50% - 10px); /* 50% van de container breedte minus gap */
+.to-do-container .taak, .completed-container .taak {
+    width: calc(50% - 10px);
     box-sizing: border-box;
     padding: 10px;
-    background-color: #fff;
+    background-color: rgba(185, 241, 202, 0.6);
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }

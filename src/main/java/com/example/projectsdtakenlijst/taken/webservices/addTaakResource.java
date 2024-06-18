@@ -25,7 +25,7 @@ public class addTaakResource {
         JsonReader jsonReader = Json.createReader(new StringReader(requestBody));
         JsonObject jsonObject = jsonReader.readObject();
 
-        String taakNaam = jsonObject.getString("taak");
+        String taakNaam = jsonObject.getString("naam");
         String omschrijving = jsonObject.getString("omschrijving");
         String datum = jsonObject.getString("datum");
         String vervalDatum = jsonObject.getString("vervalDatum");

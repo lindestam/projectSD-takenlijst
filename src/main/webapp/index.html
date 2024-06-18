@@ -5,7 +5,7 @@
   <link rel="icon" type="image/svg+xml" href="/images/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Takennlijst</title>
-  <link rel="stylesheet" crossorigin href="/assets/main-C6ngJt34.css">
+  <link rel="stylesheet" crossorigin href="/assets/main-CLyXJDpc.css">
 </head>
 <body>
 <header id="pagetitle">Taken</header>
@@ -92,8 +92,9 @@
                         ? new Date(taak.vervalDatum).toLocaleDateString('nl-NL')
                         : 'Geen vervaldatum';
 
-                let h2Element = clone.querySelector(".name");
-                h2Element.textContent = taak.naamTaak || 'Geen titel'; // Controleer deze regel
+                let nameElement = clone.querySelector(".name");
+                console.log("Task name:", taak.naam); // Log de naam van de taak om te controleren of deze aanwezig is
+                nameElement.textContent = taak.naam || 'Geen titel';
 
                 let descriptionElement = clone.querySelector(".description");
                 descriptionElement.textContent = taak.omschrijving || 'Geen omschrijving';
