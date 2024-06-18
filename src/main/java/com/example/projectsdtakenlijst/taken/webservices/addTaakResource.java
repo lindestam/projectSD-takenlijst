@@ -27,7 +27,7 @@ public class addTaakResource {
 
         String taakNaam = jsonObject.getString("naam");
         String omschrijving = jsonObject.getString("omschrijving");
-        String datum = jsonObject.getString("datum");
+        String datum = jsonObject.getString("gemaaktOp");
         String vervalDatum = jsonObject.getString("vervalDatum");
         String type = jsonObject.getString("type");
 

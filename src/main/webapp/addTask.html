@@ -16,7 +16,7 @@
     <label for="vervalDatum">vervalDatum:</label>
     <input type="date" id="vervalDatum" name="vervalDatum"><br><br>
     <label for="naam">naam van taak:</label>
-    <input type="text" id="naam" name="naamTaak"><br><br>
+    <input type="text" id="naam" name="naam"><br><br>
     <label for="omschrijving">omschrijving: </label>
     <textarea id="omschrijving" name="omschrijving"></textarea><br><br>
     <label for="type">type: </label>
@@ -27,14 +27,14 @@
 </form>
 <script>
   function formTask() {
-    let date = document.querySelector("#date").value;
+    let date = document.querySelector("#gemaaktOp").value;
     let vervaldatum = document.querySelector("#vervalDatum").value;
     let naam = document.querySelector("#naam").value;
     let omschrijving = document.querySelector("#omschrijving").value;
     let type= document.querySelector("#type").value;
 
     return {
-      datum: date,
+      gemaaktOp: date,
       vervalDatum: vervaldatum,
       naam: naam,
       omschrijving: omschrijving,

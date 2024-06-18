@@ -15,21 +15,28 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.to-do-container .completed-container {
+.to-do-container, .completed-container {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    justify-content: space-between;
-}
-
-.to-do-container .taak, .completed-container .taak {
-    width: calc(50% - 10px);
+    justify-content: flex-start; /* Zorgt ervoor dat de items aan de linkerkant beginnen */
+    width: 100%;
     box-sizing: border-box;
     padding: 10px;
-    background-color: rgba(185, 241, 202, 0.6);
+    background-color: rgba(185, 241, 211, 0.6);
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+.to-do-container .taak, .completed-container .taak {
+    width: calc(50% - 10px); /* Zorgt ervoor dat elk item 50% van de breedte van de container inneemt minus de gap */
+    box-sizing: border-box;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.84);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 
 .section-title {
     text-align: center;

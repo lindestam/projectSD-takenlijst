@@ -30,21 +30,6 @@ main {
     background-color: #00ffb2;
 }
 
-@media (prefers-color-scheme: dark) {
-    body {
-        background-color: darkblue;;
-    }
-    header {
-        background-color: darkblue;
-        color: white;
-    }
-    main {
-        background-color: yellow;
-    }
-    .taak {
-        background-color: greenyellow;
-    }
-}
 
 @media (prefers-color-scheme: light) {
     body {
