@@ -9,7 +9,7 @@ function renderAllTasks(taak) {
     let div = document.querySelector(".to-do-container");
 
     if (!temp) {
-        console.error("Template element not found.");
+        console.error("Template element not found!!.");
         return;
     }
 
@@ -25,7 +25,7 @@ function renderAllTasks(taak) {
     vervaltimeElement.setAttribute("datetime", taak.vervalDatum || '');
     vervaltimeElement.textContent = taak.vervalDatum || 'No Expiry Date';
 
-    let timeElement = clon.querySelector("time");
+    let timeElement = clon.querySelector("time:not(.vervaltijd)");
     timeElement.setAttribute("datetime", taak.gemaaktOp || '');
     const options = {
         year: 'numeric',
@@ -66,4 +66,10 @@ function render() {
         });
 }
 
-document.addEventListener('DOMContentLoaded', render);
+function showContent() {
+    render();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Initial rendering or any other setup can go here
+});
