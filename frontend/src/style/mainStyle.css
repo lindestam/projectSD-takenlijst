@@ -28,11 +28,19 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.to-do-container .taak, .completed-container .taak {
+.to-do-container .taak, .completed-container .afgevinkt {
     width: calc(50% - 10px); /* Zorgt ervoor dat elk item 50% van de breedte van de container inneemt minus de gap */
     box-sizing: border-box;
     padding: 10px;
     background-color: rgba(255, 255, 255, 0.84);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.completed-container .afgevinkt {
+    width: calc(50% - 10px); /* Zorgt ervoor dat elk item 50% van de breedte van de container inneemt minus de gap */
+    box-sizing: border-box;
+    padding: 10px;
+    background-color: rgba(199, 198, 198, 0.84);
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }

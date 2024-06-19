@@ -67,9 +67,6 @@ function render() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    let verwijder = document.querySelector(".delBtn")
-    verwijder.addEventListener("click", deleteTask);
-
     let button = document.querySelector("#takenZien");
     button.addEventListener("click", render);
 

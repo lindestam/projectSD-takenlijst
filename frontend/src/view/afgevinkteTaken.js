@@ -39,6 +39,5 @@ function afgevinkt() {
         })
 }
 document.addEventListener("DOMContentLoaded", () => {
-    let knopElerment = document.querySelector("#aanvinken");
-    knopElerment.addEventListener("click", afgevinkt);
+    afgevinkt()
 })
