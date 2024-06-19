@@ -10,9 +10,16 @@ function deleteTask() {
         button.addEventListener('click', function() {
             const taakName = this.closest('.taak').querySelector('.name').textContent;
             taakService.deleteTaak(taakName)
+                .then((result) => {
+                    render();
+                })
+                .catch((error) => {
+                    console.error('Fout bij het verwijderen van de taak:', error);
+                });
         });
     });
 }
+
 function render() {
     let tasksElement = document.querySelector(".to-do-container");
     let taskTemplate = document.getElementById("taskTemplate");
@@ -60,6 +67,10 @@ function render() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+    let verwijder = document.querySelector(".delBtn")
+    verwijder.addEventListener("click", deleteTask);
+
     let button = document.querySelector("#takenZien");
     button.addEventListener("click", render);
+
 });
