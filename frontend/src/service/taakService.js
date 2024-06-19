@@ -47,7 +47,7 @@ function addTaken(taak) {
 
 // Function to update a task
 function updateTaak(taak) {
-    const url = `http://localhost:8080/restservices/update/${taak.naamTaak}`;
+    const url = `http://localhost:8080/restservices/update/${taak.naam}`;
     const options = {
         method: "PUT",
         headers: { 'Content-Type': 'application/json' },
@@ -112,9 +112,27 @@ function getAfgevinkteTaken() {
             console.log(error);
         })
 }
+function updateAfgevinkteTaak(completedTask) {
+    let url = `http://localhost:8080/restservices/taken/afgevinkt/${completedTask.name}`
+    let options = {
+        method: "PUT",
+        body: JSON.stringify(completedTask),
+        headers: {'Content-Type': 'application/json'}
+    }
+    return fetch(url, options)
+        .then(response => response.json())
+        .then(result => {
+            console.log(result);
+            return result;
+        })
+        .catch(error => {
+            console.log(error);
+        })
+}
 export const taakService = {
     getTaken,
     addTaken,
     deleteTaak,
-    getAfgevinkteTaken
+    getAfgevinkteTaken,
+    updateAfgevinkteTaak
 };
