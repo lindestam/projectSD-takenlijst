@@ -5,16 +5,27 @@
   <link rel="icon" type="image/svg+xml" href="/images/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Takennlijst</title>
-  <script type="module" crossorigin src="/assets/main-D60jTwIN.js"></script>
+  <script type="module" crossorigin src="/assets/main-Bs70AjfV.js"></script>
   <link rel="stylesheet" crossorigin href="/assets/main-BujZnV_m.css">
 </head>
 <body>
 <header id="pagetitle">Taken</header>
 <main>
   <section class="left-section">
+    <p class="section-title">Afgevinkte Taken</p>
     <div class="completed-container">
-      <p class="section-title">Afgevinkte Taken</p>
-      <!-- Content for Completed Taken can be added here -->
+      <template id="completedTask">
+        <article id="afgevinkt">
+          <time class="gemaaktOp" datetime="">Datum</time>
+          <time class="vervaltijd" datetime="">Verval datum</time>
+          <p class="name">Taak titel</p>
+          <p class="description">Omschrijving</p>
+          <p class="type">Type</p>
+          <div class="actions">
+            <button type="button" class="delBtn" alt="verwijderen">Delete</button>
+          </div>
+        </article>
+      </template>
     </div>
   </section>
   <section class="right-section">
