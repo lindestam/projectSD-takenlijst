@@ -79,15 +79,16 @@ function deleteTaak(naam) {
     return fetch(url, options)
         .then(response => {
             if (response.ok) {
-                console.log("Task deleted");
+                console.log("Taak verwijderd");
             } else if (response.status === 404) {
-                console.log("Task not found");
+                console.log("Taak niet gevonden");
             } else {
-                console.log("Something else happened");
+                console.log("Er is iets anders gebeurd");
             }
+            return response.json(); // Return de response JSON
         })
         .catch(error => {
-            console.error("Error deleting task:", error);
+            console.error("Fout bij het verwijderen van de taak:", error);
         });
 }
 function getAfgevinkteTaken() {

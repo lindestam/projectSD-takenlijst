@@ -4,20 +4,19 @@ function showDialog() {
     // Placeholder for showDialog functionality if needed
 }
 
-function deleteTask() {
-    let buttonElement = document.querySelector('.delBtn')
-        buttonElement.forEach(button => {
-        button.addEventListener('click', function() {
-            const taakName = this.closest('.taak').querySelector('.name').textContent;
-            taakService.deleteTaak(taakName)
-                .then((result) => {
-                    render();
-                })
-                .catch((error) => {
-                    console.error('Fout bij het verwijderen van de taak:', error);
-                });
+function deleteTask(event) {
+    const button = event.target; // Het element waarop is geklikt
+    const taakName = button.getAttribute('data-task-name'); // Haal de taaknaam op van het data-attribuut
+
+    taakService.deleteTaak(taakName)
+        .then((result) => {
+            console.log(result); // Optioneel: log resultaat van verwijderen
+            // Als de taak succesvol is verwijderd, render de taken opnieuw
+            render(); // Voeg hier je render functie toe, aangepast aan je implementatie
+        })
+        .catch((error) => {
+            console.error('Fout bij het verwijderen van de taak:', error);
         });
-    });
 }
 
 function render() {
@@ -29,10 +28,10 @@ function render() {
         return;
     }
 
+    tasksElement.innerHTML = ""; // Clear existing content
+
     taakService.getTaken()
         .then(taken => {
-            tasksElement.innerHTML = ""; // Clear existing content
-
             taken.forEach(taak => {
                 let clone = taskTemplate.content.cloneNode(true);
 
@@ -49,7 +48,6 @@ function render() {
                     : 'Geen vervaldatum';
 
                 let nameElement = clone.querySelector(".name");
-                console.log("Task name:", taak.naam); // Log de naam van de taak om te controleren of deze aanwezig is
                 nameElement.textContent = taak.naam || 'Geen titel';
 
                 let descriptionElement = clone.querySelector(".description");
@@ -67,7 +65,10 @@ function render() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    let button = document.querySelector("#takenZien");
-    button.addEventListener("click", render);
-
+    const deleteButtons = document.querySelectorAll('.delBtn');
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', deleteTask);
+    });
+    render();
+    // Taken renderen bij het laden van de pagina
 });
