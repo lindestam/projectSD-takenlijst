@@ -29,6 +29,9 @@ public class alleTaken {
     public void removeTaak(Taak t) {
         taken.remove(t);
     }
+    public void removeAfgevinkteTaak(Taak t) {
+        afgevinkteTaken.remove(t);
+    }
     public boolean updateTaak(String taakNaam, Taak nieuweTaak) {
         for (int i = 0; i < taken.size(); i++) {
             if (taken.get(i).getNaam().equals(taakNaam)) {

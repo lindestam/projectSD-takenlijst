@@ -114,12 +114,12 @@ function getAfgevinkteTaken() {
         })
 }
 function updateAfgevinkteTaak(completedTask) {
-    let url = `http://localhost:8080/restservices/taken/afgevinkt/${completedTask.name}`
+    let url = `http://localhost:8080/restservices/taken/afgevinkt/${completedTask.naam}`;
     let options = {
         method: "PUT",
         body: JSON.stringify(completedTask),
         headers: {'Content-Type': 'application/json'}
-    }
+    };
     return fetch(url, options)
         .then(response => response.json())
         .then(result => {
@@ -127,8 +127,8 @@ function updateAfgevinkteTaak(completedTask) {
             return result;
         })
         .catch(error => {
-            console.log(error);
-        })
+            console.error("Error updating completed task:", error);
+        });
 }
 export const taakService = {
     getTaken,

@@ -36,6 +36,7 @@ function afgevinkt() {
 
                 divAfgevinkt.appendChild(clon);
             })
+            addAfgevinkteTaken()
         })
 }
 function moveTaskToCompleted(taskElement) {
@@ -49,23 +50,23 @@ function moveTaskToCompleted(taskElement) {
 
     taakService.updateAfgevinkteTaak(completedTask)
         .then(() => {
-        let clon = document.querySelector("#completedTask").content.cloneNode(true);
+            let clon = document.querySelector("#completedTask").content.cloneNode(true);
 
-        clon.querySelector(".gemaaktOp").textContent = new Date(completedTask.gemaaktOp).toLocaleDateString('nl-NL');
-        clon.querySelector(".vervaltijd").textContent = new Date(completedTask.vervalDatum).toLocaleDateString('nl-NL');
-        clon.querySelector(".name").textContent = completedTask.naam;
-        clon.querySelector(".description").textContent = completedTask.omschrijving;
-        clon.querySelector(".type").textContent = completedTask.type;
+            clon.querySelector(".gemaaktOp").textContent = new Date(completedTask.gemaaktOp).toLocaleDateString('nl-NL');
+            clon.querySelector(".vervaltijd").textContent = new Date(completedTask.vervalDatum).toLocaleDateString('nl-NL');
+            clon.querySelector(".name").textContent = completedTask.naam;
+            clon.querySelector(".description").textContent = completedTask.omschrijving;
+            clon.querySelector(".type").textContent = completedTask.type;
 
-        document.querySelector(".completed-container").appendChild(clon);
-        taskElement.remove();
-    }).catch(error => console.log("Error updating completed task: ", error));
+            document.querySelector(".completed-container").appendChild(clon);
+            taskElement.remove();
+        })
+        .catch(error => console.error("Error updating completed task: ", error));
 }
 
-// Function to add event listeners to the checkboxes
 function addAfgevinkteTaken() {
-    document.querySelectorAll("#aanvinken").forEach(checkbox => {
-        checkbox.addEventListener("click", event => {
+    document.querySelectorAll('input[name="completed"]').forEach(checkbox => {
+        checkbox.addEventListener("change", event => {
             if (event.target.checked) {
                 const taskElement = event.target.closest(".taak");
                 moveTaskToCompleted(taskElement);
