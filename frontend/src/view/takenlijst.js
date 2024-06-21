@@ -4,9 +4,10 @@ function showDialog() {
     // Placeholder for showDialog functionality if needed
 }
 
+// Function to handle the delete task event
 function deleteTask(event) {
     const button = event.target;
-    const taakName = button.getAttribute('data-task-name');
+    const taakName = button.parentElement.querySelector('.name').textContent;
 
     taakService.deleteTaak(taakName)
         .then((result) => {
@@ -18,6 +19,7 @@ function deleteTask(event) {
         });
 }
 
+// Function to render the tasks
 function render() {
     let tasksElement = document.querySelector(".to-do-container");
     let taskTemplate = document.getElementById("taskTemplate");
@@ -56,7 +58,6 @@ function render() {
                 typeElement.textContent = taak.type || 'Geen type';
 
                 let deleteButton = clone.querySelector('.delBtn');
-                deleteButton.setAttribute('data-task-name', taak.naam); // Set the task name to the data attribute
                 deleteButton.addEventListener('click', deleteTask);
 
                 tasksElement.appendChild(clone);
@@ -70,5 +71,3 @@ function render() {
 document.addEventListener("DOMContentLoaded", () => {
     render();
 });
-
-    // Taken renderen bij het laden van de pagina

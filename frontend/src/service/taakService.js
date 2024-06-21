@@ -71,8 +71,8 @@ function updateTaak(taak) {
 
 
 // Function to delete a task
-function deleteTaak(naam) {
-    const url = `http://localhost:8080/restservices/delete/${naam}`;
+function deleteTaak(taak) {
+    const url = `http://localhost:8080/restservices/taken/${taak.naam}`;
     const options = {
         method: "DELETE",
     };
@@ -80,12 +80,14 @@ function deleteTaak(naam) {
         .then(response => {
             if (response.ok) {
                 console.log("Taak verwijderd");
+                return response.json(); // Alleen returnen als de response JSON is
             } else if (response.status === 404) {
                 console.log("Taak niet gevonden");
+                return Promise.reject("Taak niet gevonden");
             } else {
                 console.log("Er is iets anders gebeurd");
+                return Promise.reject("Onbekende fout");
             }
-            return response.json(); // Return de response JSON
         })
         .catch(error => {
             console.error("Fout bij het verwijderen van de taak:", error);
