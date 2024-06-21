@@ -10,16 +10,11 @@ function deleteTask(event) {
     const taakElement = button.closest('.taak'); // Find the closest parent element with class 'taak'
     const taakName = taakElement.querySelector('.name').textContent;
 
-    taakService.deleteTaak(taakName)
-        .then((result) => {
-            console.log(result);
-            render();
-        })
+    taakService.deleteTaak({ naam: taakName })
         .catch((error) => {
             console.error('Fout bij het verwijderen van de taak:', error);
         });
 }
-
 
 // Function to render the tasks
 function render() {
@@ -71,5 +66,5 @@ function render() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    render();
+    render([]);
 });

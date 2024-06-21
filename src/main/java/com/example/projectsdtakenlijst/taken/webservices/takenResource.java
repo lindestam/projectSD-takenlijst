@@ -26,25 +26,35 @@ public class takenResource {
     }
     @DELETE
     @Path("{naam}")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response deleteTaak(@PathParam("naam") String naam) {
         alleTaken takenLijst = alleTaken.getTaak();
         System.out.println("Te verwijderen taaknaam: " + naam);
 
-        Taak taakToRemove = null;
-        for (Taak taak : takenLijst.getTaken()) {
-            if (taak.getNaam().equals(naam)) {
-                taakToRemove = taak;
-                break;
+        try {
+            Taak taakToRemove = null;
+            for (Taak taak : takenLijst.getTaken()) {
+                if (taak.getNaam().equals(naam)) {
+                    taakToRemove = taak;
+                    break;
+                }
             }
-        }
-        System.out.println("verwijderde taak: " + taakToRemove);
+            System.out.println("verwijderde taak: " + taakToRemove);
 
-        // Controleer of de taak gevonden is
-        if (taakToRemove != null) {
-            takenLijst.removeTaak(taakToRemove);
-            return Response.ok().build();
-        } else {
-            return Response.status(Response.Status.NOT_FOUND).build();
+            if (taakToRemove != null) {
+                takenLijst.removeTaak(taakToRemove);
+                List<Taak> updatedTaken = takenLijst.getTaken();
+                return Response.ok(updatedTaken).build(); // Retourneer de geüpdatete lijst van taken
+            } else {
+                return Response.status(Response.Status.NOT_FOUND)
+                        .entity(new AbstractMap.SimpleEntry<>("error", "Taak niet gevonden"))
+                        .build();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(new AbstractMap.SimpleEntry<>("error", "Interne serverfout"))
+                    .build();
         }
     }
 }

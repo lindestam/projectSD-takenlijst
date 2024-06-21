@@ -72,7 +72,7 @@ function updateTaak(taak) {
 
 // Function to delete a task
 function deleteTaak(taak) {
-    const url = `http://localhost:8080/restservices/taken/${taak.naam}`;
+    const url = `http://localhost:8080/restservices/taken/${encodeURIComponent(taak.naam)}`;
     const options = {
         method: "DELETE",
     };
@@ -80,21 +80,25 @@ function deleteTaak(taak) {
         .then(response => {
             if (response.ok) {
                 console.log("Taak verwijderd");
-                return response.json(); // Alleen returnen als de response JSON is
+                return response.json(); // Verwacht een JSON-respons met de geüpdatete lijst van taken
             } else if (response.status === 404) {
                 console.log("Taak niet gevonden");
-                return Promise.reject("Taak niet gevonden");
+                return Promise.reject({ error: "Taak niet gevonden" });
             } else {
                 console.log("Er is iets anders gebeurd");
-                return Promise.reject("Onbekende fout");
+                return Promise.reject({ error: "Onbekende fout" });
             }
         })
         .catch(error => {
             console.error("Fout bij het verwijderen van de taak:", error);
+            return Promise.reject(error);
         });
 }
+
+
+
 function getAfgevinkteTaken() {
-    let url = "http://localhost:8080/restservices/taken/afgevinkt"
+    let url = "http://localhost:8080/restservices/completed"
     return fetch(url)
         .then (response => {
             return response.json()
@@ -116,7 +120,7 @@ function getAfgevinkteTaken() {
         })
 }
 function updateAfgevinkteTaak(completedTask) {
-    let url = `http://localhost:8080/restservices/taken/afgevinkt/${completedTask.naam}`;
+    let url = `http://localhost:8080/restservices/completed/${completedTask.naam}`;
     let options = {
         method: "PUT",
         body: JSON.stringify(completedTask),
