@@ -24,30 +24,27 @@ public class takenResource {
         List<Taak> taken = taak.getTaken();
         return Response.ok(taken).build();
     }
+    @DELETE
+    @Path("{naam}")
+    public Response deleteTaak(@PathParam("naam") String naam) {
+        alleTaken takenLijst = alleTaken.getTaak();
+        System.out.println("Te verwijderen taaknaam: " + naam);
 
-    @GET
-    @Path("{afgevinkt}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getAfgevinkteTaken(@PathParam("afgevinkt")alleTaken taak) {
-        alleTaken afgevinkteTaak = alleTaken.getTaak();
-        List<Taak> afgevinkteTaken = afgevinkteTaak.getAfgevinkteTaken();
-        return Response.ok(afgevinkteTaken).build();
-    }
-    @PUT
-    @Path("afgevinkt/{name}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response voegAfgevinkteTaak(@PathParam("name")String name) {
-        alleTaken taak = alleTaken.getTaak();
-        List<Taak> taken = taak.getTaken();
-
-        for (Taak t : taken) {
-            if (t.getNaam().equals(name)) {
-                taken.remove(t);
-                taak.voegAfgevinkteTaakToe(t);
-                return Response.ok(t).build();
+        Taak taakToRemove = null;
+        for (Taak taak : takenLijst.getTaken()) {
+            if (taak.getNaam().equals(naam)) {
+                taakToRemove = taak;
+                break;
             }
         }
-        var error = new AbstractMap.SimpleEntry<>("error", "task not found!");
-        return Response.status(409).entity(error).build();
+        System.out.println("verwijderde taak: " + taakToRemove);
+
+        // Controleer of de taak gevonden is
+        if (taakToRemove != null) {
+            takenLijst.removeTaak(taakToRemove);
+            return Response.ok().build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
     }
 }

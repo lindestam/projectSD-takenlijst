@@ -7,7 +7,8 @@ function showDialog() {
 // Function to handle the delete task event
 function deleteTask(event) {
     const button = event.target;
-    const taakName = button.parentElement.querySelector('.name').textContent;
+    const taakElement = button.closest('.taak'); // Find the closest parent element with class 'taak'
+    const taakName = taakElement.querySelector('.name').textContent;
 
     taakService.deleteTaak(taakName)
         .then((result) => {
@@ -18,6 +19,7 @@ function deleteTask(event) {
             console.error('Fout bij het verwijderen van de taak:', error);
         });
 }
+
 
 // Function to render the tasks
 function render() {
