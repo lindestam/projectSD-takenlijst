@@ -1,25 +1,25 @@
 package com.example.projectsdtakenlijst.taken.modules;
 
 public class Gebruiker {
-    private String naam;
-    private String gebruikersNaam;
+    private String naamGebruiker;
+    private String gebruikersnaam;
     private String wachtwoord;
     private String email;
 
     public Gebruiker(String nm, String gN, String ww, String em) {
         naam = nm;
-        gebruikersNaam = gN;
+        gebruikersnaam = gN;
         wachtwoord = ww;
         email = em;
     }
 
     // Getters
     public String getNaam() {
-        return naam;
+        return naamGebruiker;
     }
 
     public String getGebruikersNaam() {
-        return gebruikersNaam;
+        return gebruikersnaam;
     }
 
     public String getWachtwoord() {
@@ -32,11 +32,11 @@ public class Gebruiker {
 
     // Setters
     public void setNaam(String nm) {
-        naam = nm;
+        naamGebruiker = nm;
     }
 
     public void setGebruikersNaam(String gN) {
-        gebruikersNaam = gN;
+        gebruikersnaam = gN;
     }
 
     public void setWachtwoord(String ww) {

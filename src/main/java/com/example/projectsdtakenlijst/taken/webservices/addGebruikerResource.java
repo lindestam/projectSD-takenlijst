@@ -23,8 +23,8 @@ public class addGebruikerResource {
         JsonReader jsonReader = Json.createReader(new StringReader(requestBody));
         JsonObject jsonObject = jsonReader.readObject();
 
-        String naamGebruiker = jsonObject.getString("naam");
-        String gebruikersNaam = jsonObject.getString("gebruikersNaam");
+        String naamGebruiker = jsonObject.getString("naamGebruiker");
+        String gebruikersNaam = jsonObject.getString("gebruikersnaam");
         String wachtwoord = jsonObject.getString("wachtwoord");
         String email = jsonObject.getString("email");
 
