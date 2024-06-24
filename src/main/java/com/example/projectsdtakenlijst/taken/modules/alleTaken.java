@@ -48,8 +48,8 @@ public class alleTaken {
         afgevinkteTaken.add(taak);
         taken.remove(taak); // Verwijder de taak ook uit de normale takenlijst
     }
-    public Gebruiker addGebruiker(String naam, String gebruikersNaam, String wachtwoord, String email) {
-        Gebruiker nieuweGebruiker = new Gebruiker(naam, gebruikersNaam, wachtwoord, email);
+    public Gebruiker addGebruiker(String naamGebruiker, String gebruikersnaam, String wachtwoord, String email) {
+        Gebruiker nieuweGebruiker = new Gebruiker(naamGebruiker, gebruikersnaam, wachtwoord, email);
         gebruikers.add(nieuweGebruiker);
         return nieuweGebruiker;
     }

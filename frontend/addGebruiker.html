@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <link rel="icon" type="image/svg+xml" href="/images/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="module" src="src/view/gebruikerlijst.js"></script>
     <title>gebruiker toevoegen</title>
 </head>
 <body>
@@ -12,7 +13,7 @@
     <fieldset>
         <legend>gebruiker</legend>
         <label for="naamGebruiker">naam :</label>
-        <input type="text" id="naamGebruiker" name="naamGebruiker">
+        <input type="text" id="naamGebruiker" name="naam">
         <label for="gebruikersNaam">gebruikersnaam :</label>
         <input type="text" id="gebruikersNaam" name="gebruikersNaam">
         <label for="wachtwoord">wachtwoord :</label>
@@ -20,8 +21,8 @@
         <label for="email">email: </label>
         <input type="text" id="email" name="email">
     </fieldset>
-    <button class="reset" type="reset">annuleer</button>
-    <button class="submit" type="submit">voeg toe</button>
+    <button class="resetGebruiker" type="reset">annuleer</button>
+    <button class="submitGebruiker" type="submit">voeg toe</button>
 </form>
 </body>
 </html>

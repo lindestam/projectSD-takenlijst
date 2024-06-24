@@ -41,5 +41,9 @@ function addGebruiker(gebruiker) {
         .catch(error => {
             console.error("error adding gebruikers", error);
         })
+}
+export const gebruikerService = {
+    getGebruiker,
+    addGebruiker
 
 }
