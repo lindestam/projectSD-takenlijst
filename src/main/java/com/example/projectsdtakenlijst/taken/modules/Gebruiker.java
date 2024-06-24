@@ -7,7 +7,7 @@ public class Gebruiker {
     private String email;
 
     public Gebruiker(String nm, String gN, String ww, String em) {
-        naam = nm;
+        naamGebruiker = nm;
         gebruikersnaam = gN;
         wachtwoord = ww;
         email = em;
