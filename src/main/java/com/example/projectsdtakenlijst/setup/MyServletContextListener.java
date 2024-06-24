@@ -1,6 +1,7 @@
 package com.example.projectsdtakenlijst.setup;
 
 import com.example.projectsdtakenlijst.persistence.PersistenceManager;
+import com.example.projectsdtakenlijst.persistence.persistenceGebruiker;
 import com.example.projectsdtakenlijst.taken.modules.Taak;
 import com.example.projectsdtakenlijst.taken.modules.alleTaken;
 
@@ -17,14 +18,16 @@ public class MyServletContextListener implements ServletContextListener {
 
         // Maak één instantie van alleTaken aan
         alleTaken takenLijst = PersistenceManager.loadTasksFromCSV();
+
         alleTaken.setTaak(takenLijst);
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
         System.out.println("terminating application");
-
         alleTaken takenLijst = alleTaken.getTaak();
+
+
         PersistenceManager.saveTasksToCSV(takenLijst);
         PersistenceManager.saveAfgevinkteTasksToCSV(takenLijst);
     }
