@@ -12,14 +12,17 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class PersistenceManager {
-
     private static final String DATA_DIRECTORY = "data";
     private static final String DATA_FILE = "data/taken.csv";
     private static final String AFGEVINKTE_TAKEN_FILE = "data/afgevinkteTaken.csv";
 
     // Methode om taken vanuit een CSV-bestand in te laden
     public static alleTaken loadTasksFromCSV() {
-        alleTaken tasks = new alleTaken("Taken");
+        alleTaken tasks = alleTaken.getTaak();
+        if (tasks == null) { // Controleer of er al een instantie bestaat
+            tasks = new alleTaken("lijsten");
+            alleTaken.setTaak(tasks);
+        }
         loadTasksFromFile(DATA_FILE, tasks, false);
         loadTasksFromFile(AFGEVINKTE_TAKEN_FILE, tasks, true);
         return tasks;
@@ -77,4 +80,3 @@ public class PersistenceManager {
         saveTasksToFile(AFGEVINKTE_TAKEN_FILE, tasks.getAfgevinkteTaken());
     }
 }
-

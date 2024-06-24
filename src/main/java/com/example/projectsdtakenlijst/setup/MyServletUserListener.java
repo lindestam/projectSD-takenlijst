@@ -12,10 +12,6 @@ public class MyServletUserListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         System.out.println("Applicatie is begonnen, gebruikers worden geladen.");
-
-        alleTaken gebruikers = new alleTaken("gebruikerlijst");
-
-        alleTaken.setTaak(gebruikers);
         persistenceGebruiker.loadUsersFromFile();
     }
 
