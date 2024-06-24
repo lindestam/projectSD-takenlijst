@@ -11,6 +11,10 @@ function deleteTask(event) {
     const taakName = taakElement.querySelector('.name').textContent;
 
     taakService.deleteTaak({ naam: taakName })
+        .then((result) => {
+            console.log(result); // optioneel: log het resultaat van de verwijdering
+            render(); // Roep de render functie aan om de taken opnieuw te renderen
+        })
         .catch((error) => {
             console.error('Fout bij het verwijderen van de taak:', error);
         });

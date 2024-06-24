@@ -31,29 +31,23 @@ public class takenResource {
         alleTaken takenLijst = alleTaken.getTaak();
         System.out.println("Te verwijderen taaknaam: " + naam);
 
-        try {
-            Taak taakToRemove = null;
-            for (Taak taak : takenLijst.getTaken()) {
-                if (taak.getNaam().equals(naam)) {
-                    taakToRemove = taak;
-                    break;
-                }
-            }
-            System.out.println("verwijderde taak: " + taakToRemove);
 
-            if (taakToRemove != null) {
-                takenLijst.removeTaak(taakToRemove);
-                List<Taak> updatedTaken = takenLijst.getTaken();
-                return Response.ok(updatedTaken).build(); // Retourneer de geüpdatete lijst van taken
-            } else {
-                return Response.status(Response.Status.NOT_FOUND)
-                        .entity(new AbstractMap.SimpleEntry<>("error", "Taak niet gevonden"))
-                        .build();
+        Taak taakToRemove = null;
+        for (Taak taak : takenLijst.getTaken()) {
+            if (taak.getNaam().equals(naam)) {
+                taakToRemove = taak;
+                break;
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity(new AbstractMap.SimpleEntry<>("error", "Interne serverfout"))
+        }
+        System.out.println("verwijderde taak: " + taakToRemove);
+
+        if (taakToRemove != null) {
+            takenLijst.removeTaak(taakToRemove);
+            List<Taak> updatedTaken = takenLijst.getTaken();
+            return Response.ok(updatedTaken).build(); // Retourneer de geüpdatete lijst van taken
+        } else {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity(new AbstractMap.SimpleEntry<>("error", "Taak niet gevonden"))
                     .build();
         }
     }
