@@ -16,11 +16,14 @@ public class alleTaken {
     private final String naam;
     private final List<Taak> taken;
     private final List<Taak> afgevinkteTaken;
+    private final List<Gebruiker> gebruikers;
     public alleTaken(String nm) {
         naam = nm;
         taken = new ArrayList<>();
         afgevinkteTaken = new ArrayList<>();
+        gebruikers = new ArrayList<>();
     }
+
     public Taak addTaak(String naam, String omschrijving, String gemaaktTijd, String vervalTijd, String type) {
         Taak nieuweTaak = new Taak(naam, omschrijving, gemaaktTijd, vervalTijd, type);
         taken.add(nieuweTaak);
@@ -45,6 +48,11 @@ public class alleTaken {
         afgevinkteTaken.add(taak);
         taken.remove(taak); // Verwijder de taak ook uit de normale takenlijst
     }
+    public Gebruiker addGebruiker(String naam, String gebruikersNaam, String wachtwoord, String email) {
+        Gebruiker nieuweGebruiker = new Gebruiker(naam, gebruikersNaam, wachtwoord, email);
+        gebruikers.add(nieuweGebruiker);
+        return nieuweGebruiker;
+    }
 
     public String getNaam() {
         return naam;
@@ -54,6 +62,9 @@ public class alleTaken {
     }
     public List<Taak> getAfgevinkteTaken() {
         return Collections.unmodifiableList(afgevinkteTaken);
+    }
+    public List<Gebruiker> getGebruikers(){
+        return Collections.unmodifiableList(gebruikers);
     }
 
 
