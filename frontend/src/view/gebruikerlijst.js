@@ -7,7 +7,7 @@ function gebruikers() {
     let email = document.querySelector("#email");
 
     return {
-        naamGebruiker: naamgebruiker,
+        naam: naamgebruiker,
         gebruikersNaam: gebruikersnaam,
         wachtwoord: wachtwoord,
         email: email
