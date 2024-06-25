@@ -22,7 +22,7 @@ function getGebruiker() {
 }
 
 function addGebruiker(gebruiker) {
-    let url = "http://localhost:8080/restservices/addgebruiker"
+    let url = "http://localhost:8080/restservices/addgebruiker";
     let options = {
         method: "POST",
         headers: {
@@ -33,14 +33,14 @@ function addGebruiker(gebruiker) {
 
     return fetch(url, options)
         .then(response => {
-            if(!response.ok) {
-                throw new Error("http error, : ${response.status}");
+            if (!response.ok) {
+                throw new Error(`HTTP error, status = ${response.status}`);
             }
             return response.json();
         })
         .catch(error => {
             console.error("error adding gebruikers", error);
-        })
+        });
 }
 export const gebruikerService = {
     getGebruiker,
