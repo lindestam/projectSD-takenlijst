@@ -7,18 +7,31 @@ import com.example.projectsdtakenlijst.taken.modules.alleTaken;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.StringReader;
 import java.util.List;
 
-@Path("gebruikerTaak")
+@Path("taken")
 public class gebruikerBijTaak {
-    @Path("{taakNaam}/gebruikers")
+    @GET
+    @Path("{taakNaam}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getGebruikersVanTaak(@PathParam("taakNaam")String naam) {
+        List<Taak> taken = alleTaken.getTaak().getTaken();
+        Taak taak = null;
+        for (Taak t : taken) {
+            if (t.getNaam().equals(naam)) {
+                taak = t;
+            }
+        }
+        alleTaken takenlijst = alleTaken.getTaak();
+        List<Gebruiker> gebruikersBijTaak = takenlijst.getGebruikersBijTaak(taak);
+        return Response.ok(gebruikersBijTaak).build();
+    }
+
+    @Path("gebruikers/{taakNaam}")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public Response gebruikerToevoegenAanTaak(@PathParam("taakNaam")String naam, String requestBody) {
@@ -26,6 +39,9 @@ public class gebruikerBijTaak {
         JsonObject jsonObject = jsonReader.readObject();
 
         String gebruiker = jsonObject.getString("gebruiker");
+        String gebruikersnaam = jsonObject.getString("gebruikersNaam");
+        String wachtwoord = jsonObject.getString("wachtwoord");
+        String email = jsonObject.getString("email");
 
         List<Taak> taken = alleTaken.getTaak().getTaken();
         Taak gekozenTaak = null;
@@ -40,11 +56,43 @@ public class gebruikerBijTaak {
                     .entity("Taak met naam " + naam + " niet gevonden.")
                     .build();
         }
-        Gebruiker nieuweGebruiker = new Gebruiker(gebruiker, "gebruikersnaam", "wachtwoord", "email"); // Je moet hier de juiste parameters invullen
-        alleTaken lijst = alleTaken.getTaak();
 
-        lijst.gebruikerToevoegenBijTaak(gekozenTaak, nieuweGebruiker);
+
+        Gebruiker nieuweGebruiker = new Gebruiker(gebruiker, gebruikersnaam, wachtwoord, email); // Je moet hier de juiste parameters invullen
+        alleTaken lijst = alleTaken.getTaak();
+        boolean gebruikerBestaat = false;
+        for (Gebruiker g : lijst.getGebruikers()) {
+            if (g.getNaam().equals(nieuweGebruiker.getNaam()) && g.getGebruikersNaam().equals(nieuweGebruiker.getGebruikersNaam())
+                    && g.getWachtwoord().equals(nieuweGebruiker.getWachtwoord()) && g.getEmail().equals(nieuweGebruiker.getEmail())) {
+                gebruikerBestaat = true;
+                break;
+            }
+        }
+
+        if (!gebruikerBestaat) {
+            var error = "gebruiker bestaat niet";
+            return Response.status(409).entity(error).build();
+        }
+
+
+
+        boolean gebruikerAlBijTaak = false;
         List<Gebruiker> gebruikersBijTaak = lijst.getGebruikersBijTaak(gekozenTaak);
-        return Response.ok(gebruikersBijTaak).build();
+        for (Gebruiker g : gebruikersBijTaak) {
+            if (g.getNaam().equals(nieuweGebruiker.getNaam()) && g.getGebruikersNaam().equals(nieuweGebruiker.getGebruikersNaam())
+                    && g.getWachtwoord().equals(nieuweGebruiker.getWachtwoord()) && g.getEmail().equals(nieuweGebruiker.getEmail())) {
+                gebruikerAlBijTaak = true;
+                break;
+            }
+        }
+
+        if (gebruikerAlBijTaak) {
+            var error = "gebruiker is al gekoppeld aan deze taak";
+            return Response.status(409).entity(error).build();
+        } else {
+            lijst.gebruikerToevoegenBijTaak(gekozenTaak, nieuweGebruiker);
+            gebruikersBijTaak = lijst.getGebruikersBijTaak(gekozenTaak);
+            return Response.ok(gebruikersBijTaak).build();
+        }
     }
 }
