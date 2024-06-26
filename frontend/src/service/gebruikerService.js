@@ -52,9 +52,30 @@ function getTaakGebruikers(taakNaam) {
             return [];
         });
 }
+function gebruikerBijTaakToevoegen(taakNaam) {
+    let url = "http://localhost:8080/restservices/taken/gebruikers/${taakNaam}"
+    let options = {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+        },
+        body: JSON.stringify(taakNaam),
+    };
+    return fetch(url,options)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error, status = ${response.status}`);
+            }
+            return response.json();
+        })
+        .catch(error => {
+            console.error("error adding gebruikers", error);
+        });
+}
 export const gebruikerService = {
     getGebruiker,
     addGebruiker,
-    getTaakGebruikers
+    getTaakGebruikers,
+    gebruikerBijTaakToevoegen
 
 }

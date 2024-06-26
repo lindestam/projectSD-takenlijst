@@ -5,6 +5,7 @@
 }
 
 .taak {
+    position: relative;
     background-color: #5fa85f;
     max-width: 300px;
     border-radius: 0.5rem;
@@ -20,4 +21,17 @@
     font-weight: bold;  /* Maakt de tekst dikker */
     font-size: large;   /* Past de lettergrootte aan */
     margin: 0.5rem 0;   /* Voeg wat marge toe boven en onder de naam */
+}
+.taak > .voegToeGebruiker {
+    top: 10px;
+    right: 10px;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    position: absolute;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: shadow */
 }
