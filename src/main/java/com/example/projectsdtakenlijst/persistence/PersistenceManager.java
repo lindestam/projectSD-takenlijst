@@ -17,7 +17,7 @@ public class PersistenceManager {
     private static final String AFGEVINKTE_TAKEN_FILE = "data/afgevinkteTaken.csv";
 
     // Methode om taken vanuit een CSV-bestand in te laden
-    public static alleTaken loadTasksFromCSV() {
+    public static void loadTasksFromCSV() {
         alleTaken tasks = alleTaken.getTaak();
         if (tasks == null) { // Controleer of er al een instantie bestaat
             tasks = new alleTaken("lijsten");
@@ -25,7 +25,6 @@ public class PersistenceManager {
         }
         loadTasksFromFile(DATA_FILE, tasks, false);
         loadTasksFromFile(AFGEVINKTE_TAKEN_FILE, tasks, true);
-        return tasks;
     }
 
     private static void loadTasksFromFile(String fileName, alleTaken tasks, boolean afgevinkt) {

@@ -13,7 +13,12 @@ import java.util.List;
 public class persistenceGebruiker {
     private static final String DATA_DIRECTORY = "data";
     private static final String DATA_FILE = "data/gebruikers.csv";
+    private static final String USER_TASK_DIRECTOR = "data";
+    private static final String USER_TASK_FILE = "data/gebruikerTaak.csv";
 
+    public static void loadUsersFromSCV() {
+
+    }
     public static void loadUsersFromFile() {
         alleTaken alleTakenInstance = alleTaken.getTaak();
         Path dataFile = Paths.get(DATA_FILE);
