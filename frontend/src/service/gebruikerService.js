@@ -42,8 +42,32 @@ function addGebruiker(gebruiker) {
             console.error("error adding gebruikers", error);
         });
 }
+function getTaakGebruikers(gebruiker) {
+    let url = `http://localhost:8080/restservices/taken${gebruiker.naam}`
+    return fetch(url)
+        .then(response => {
+            return response.json().then(data => ({
+                status: response.status,
+                body: data
+            }));
+        })
+        .then(({ status, body }) => {
+            if (status === 200) {
+                console.log(body);
+                return body;
+            } else {
+                console.error(body.error);
+                return [];
+            }
+        })
+        .catch(error => {
+            console.error("Error fetching gebruikers:", error);
+            return [];
+        });
+}
 export const gebruikerService = {
     getGebruiker,
-    addGebruiker
+    addGebruiker,
+    getTaakGebruikers
 
 }

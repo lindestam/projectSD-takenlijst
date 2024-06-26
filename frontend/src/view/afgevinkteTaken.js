@@ -1,4 +1,4 @@
-import { taakService } from '../service/taakService.js';
+import { afgvinkteTaakService } from '../service/afgevinkteTaakService.js';
 function afgevinkt() {
     let templateAfgevinkt = document.querySelector("#completedTask")
     let divAfgevinkt = document.querySelector(".completed-container")
@@ -48,7 +48,7 @@ function moveTaskToCompleted(taskElement) {
         type: taskElement.querySelector(".type").textContent
     };
 
-    taakService.updateAfgevinkteTaak(completedTask)
+    afgvinkteTaakService.updateAfgevinkteTaak(completedTask)
         .then(() => {
             let clon = document.querySelector("#completedTask").content.cloneNode(true);
 

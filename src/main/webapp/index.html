@@ -5,7 +5,7 @@
   <link rel="icon" type="image/svg+xml" href="/images/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Takennlijst</title>
-  <script type="module" crossorigin src="/assets/main-DsJdVWGe.js"></script>
+  <script type="module" crossorigin src="/assets/main-5gEpi9R8.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
   <link rel="stylesheet" crossorigin href="/assets/main-DAgB6ofo.css">
 </head>
@@ -23,6 +23,12 @@
           <p class="description">Omschrijving</p>
           <p class="type">Type</p>
           <button type="button" class="delBtn" alt="verwijderen">Delete</button>
+          <ul id="taakAfgevinkt-list">
+            <!-- Dynamisch gegenereerde lijst met namen -->
+          </ul>
+          <div id="taakAfgevinktDetails">
+            <!-- Dynamisch gegenereerde details over een naam -->
+          </div>
         </article>
       </template>
     </div>
@@ -40,6 +46,12 @@
           <div class="actions">
             <label for="aanvinken"></label><input type="checkbox" id="aanvinken" name="completed">
             <button type="button" class="delBtn"  alt="verwijderen">Delete</button>
+            <ul id="taak-list">
+              <!-- Dynamisch gegenereerde lijst met namen -->
+            </ul>
+            <div id="taakDetails">
+              <!-- Dynamisch gegenereerde details over een naam -->
+            </div>
           </div>
         </article>
       </template>
