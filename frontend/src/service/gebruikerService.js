@@ -42,24 +42,11 @@ function addGebruiker(gebruiker) {
             console.error("error adding gebruikers", error);
         });
 }
-function getTaakGebruikers(gebruiker) {
-    let url = `http://localhost:8080/restservices/taken${gebruiker.naam}`
+function getTaakGebruikers(taakNaam) {
+    let url = `http://localhost:8080/restservices/taken/${taakNaam}`;
     return fetch(url)
-        .then(response => {
-            return response.json().then(data => ({
-                status: response.status,
-                body: data
-            }));
-        })
-        .then(({ status, body }) => {
-            if (status === 200) {
-                console.log(body);
-                return body;
-            } else {
-                console.error(body.error);
-                return [];
-            }
-        })
+        .then(response => response.json())
+        .then(data => data)
         .catch(error => {
             console.error("Error fetching gebruikers:", error);
             return [];

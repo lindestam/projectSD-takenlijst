@@ -6,7 +6,7 @@ function afgevinkt() {
         console.log("template bestaat niet");
     }
 
-    taakService.getAfgevinkteTaken()
+    afgvinkteTaakService.getAfgevinkteTaken()
         .then(afgevinkteTaken => {
             divAfgevinkt.innerHTML = ""
 

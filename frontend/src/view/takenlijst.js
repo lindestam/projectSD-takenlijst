@@ -1,4 +1,5 @@
 import { taakService } from '../service/taakService.js';
+import {gebruikerService} from "../service/gebruikerService.js";
 
 function showDialog() {
     // Placeholder for showDialog functionality if needed
@@ -61,6 +62,19 @@ function render() {
                 let deleteButton = clone.querySelector('.delBtn');
                 deleteButton.addEventListener('click', deleteTask);
 
+                let gebruikerTaakElement = clone.querySelector("#taak-list");
+                if (!gebruikerTaakElement) {
+                    console.error("Element with ID 'taak-list' not found in the template for taak:", taak.naam);
+                } else {
+                    // Fetch and render gebruikers for this task
+                    gebruikerService.getTaakGebruikers(taak.naam).then(gebruikers => {
+                        gebruikers.forEach(gebruiker => {
+                            let li = document.createElement("option");
+                            li.textContent = gebruiker.naam; // Assuming gebruiker object has 'naam' property
+                            gebruikerTaakElement.appendChild(li);
+                        });
+                    });
+                }
                 tasksElement.appendChild(clone);
             });
         })
@@ -68,7 +82,7 @@ function render() {
             console.error("Error rendering tasks:", error);
         });
 }
-
 document.addEventListener("DOMContentLoaded", () => {
     render([]);
+
 });

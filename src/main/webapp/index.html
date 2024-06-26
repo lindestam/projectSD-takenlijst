@@ -5,8 +5,8 @@
   <link rel="icon" type="image/svg+xml" href="/images/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Takennlijst</title>
-  <script type="module" crossorigin src="/assets/main-5gEpi9R8.js"></script>
-  <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
+  <script type="module" crossorigin src="/assets/main-DDKzwf08.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/gebruikerService-CA81cPtd.js">
   <link rel="stylesheet" crossorigin href="/assets/main-DAgB6ofo.css">
 </head>
 <body>
@@ -23,12 +23,10 @@
           <p class="description">Omschrijving</p>
           <p class="type">Type</p>
           <button type="button" class="delBtn" alt="verwijderen">Delete</button>
-          <ul id="taakAfgevinkt-list">
+          <label for="taakAfgevinkt-list">gebruikers: </label>
+          <select id="taakAfgevinkt-list">
             <!-- Dynamisch gegenereerde lijst met namen -->
-          </ul>
-          <div id="taakAfgevinktDetails">
-            <!-- Dynamisch gegenereerde details over een naam -->
-          </div>
+          </select>
         </article>
       </template>
     </div>
@@ -46,12 +44,10 @@
           <div class="actions">
             <label for="aanvinken"></label><input type="checkbox" id="aanvinken" name="completed">
             <button type="button" class="delBtn"  alt="verwijderen">Delete</button>
-            <ul id="taak-list">
+            <label for="taak-list">gebruikers: </label>
+            <select id="taak-list">
               <!-- Dynamisch gegenereerde lijst met namen -->
-            </ul>
-            <div id="taakDetails">
-              <!-- Dynamisch gegenereerde details over een naam -->
-            </div>
+            </select>
           </div>
         </article>
       </template>
@@ -62,14 +58,5 @@
   <button class="addBtn" type="submit" formaction="addTask.html">+</button>
   <button class="gebruiker" type="submit" formaction="addGebruiker.html">gebruikers</button>
 </form>
-<dialog>
-  <time dateTime="YYYY-MM-DD">Datum</time>
-  <time vervaltijd="YYYY-MM-DD">Verval datum</time>
-  <p>
-    <button id="editBtn" alt="aanpassen"></button>
-  </p>
-  <p class="description">Omschrijving</p>
-  <p class="type">Type</p>
-</dialog>
 </body>
 </html>
