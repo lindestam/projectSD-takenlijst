@@ -13,8 +13,6 @@
     <legend>taak</legend>
     <label for="gemaaktOp">gemaakt op:</label>
     <input type="date" id="gemaaktOp" name="gemaaktOp"><br><br>
-    <label for="vervalDatum">vervalDatum:</label>
-    <input type="date" id="vervalDatum" name="vervalDatum"><br><br>
     <label for="naam">naam van taak:</label>
     <input type="text" id="naam" name="naam"><br><br>
     <label for="omschrijving">omschrijving: </label>
@@ -28,14 +26,12 @@
 <script>
   function formTask() {
     let date = document.querySelector("#gemaaktOp").value;
-    let vervaldatum = document.querySelector("#vervalDatum").value;
     let naam = document.querySelector("#naam").value;
     let omschrijving = document.querySelector("#omschrijving").value;
     let type= document.querySelector("#type").value;
 
     return {
       gemaaktOp: date,
-      vervalDatum: vervaldatum,
       naam: naam,
       omschrijving: omschrijving,
       type: type // Assuming there is a default type for the task

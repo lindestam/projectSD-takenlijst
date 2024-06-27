@@ -37,7 +37,7 @@ public class PersistenceManager {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(",");
-                if (data.length == 5) {
+                if (data.length == 4) {
                     Taak taak = tasks.addTaak(data[0], data[1], data[2], data[3]);
                     if (afgevinkt) {
                         tasks.voegAfgevinkteTaakToe(taak);

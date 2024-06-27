@@ -44,12 +44,6 @@ function render() {
                     ? new Date(taak.gemaaktOp).toLocaleDateString('nl-NL')
                     : 'Geen datum';
 
-                let vervaltimeElement = clone.querySelector(".vervaltijd");
-                vervaltimeElement.setAttribute("datetime", taak.vervalDatum || '');
-                vervaltimeElement.textContent = taak.vervalDatum
-                    ? new Date(taak.vervalDatum).toLocaleDateString('nl-NL')
-                    : 'Geen vervaldatum';
-
                 let nameElement = clone.querySelector(".name");
                 nameElement.textContent = taak.naam || 'Geen titel';
 
