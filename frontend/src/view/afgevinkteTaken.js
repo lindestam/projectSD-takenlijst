@@ -19,12 +19,6 @@ function afgevinkt() {
                     ? new Date(afgevinkteTaak.gemaaktOp).toLocaleDateString('nl-NL')
                     : 'Geen datum';
 
-                let vervalDateElement = clon.querySelector(".vervaltijd");
-                vervalDateElement.setAttribute("datetime", afgevinkteTaak.vervalDatum);
-                vervalDateElement.textContent = afgevinkteTaak.vervalDatum
-                    ? new Date(afgevinkteTaak.vervalDatum).toLocaleDateString('nl-NL')
-                    : 'Geen datum';
-
                 let naamElement = clon.querySelector(".name");
                 naamElement.textContent = afgevinkteTaak.naam || "geen titel";
 
@@ -42,7 +36,6 @@ function afgevinkt() {
 function moveTaskToCompleted(taskElement) {
     let completedTask = {
         gemaaktOp: taskElement.querySelector(".gemaaktOp").getAttribute("datetime"),
-        vervalDatum: taskElement.querySelector(".vervaltijd").getAttribute("datetime"),
         naam: taskElement.querySelector(".name").textContent,
         omschrijving: taskElement.querySelector(".description").textContent,
         type: taskElement.querySelector(".type").textContent
@@ -53,7 +46,6 @@ function moveTaskToCompleted(taskElement) {
             let clon = document.querySelector("#completedTask").content.cloneNode(true);
 
             clon.querySelector(".gemaaktOp").textContent = new Date(completedTask.gemaaktOp).toLocaleDateString('nl-NL');
-            clon.querySelector(".vervaltijd").textContent = new Date(completedTask.vervalDatum).toLocaleDateString('nl-NL');
             clon.querySelector(".name").textContent = completedTask.naam;
             clon.querySelector(".description").textContent = completedTask.omschrijving;
             clon.querySelector(".type").textContent = completedTask.type;
