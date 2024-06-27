@@ -52,24 +52,36 @@ function getTaakGebruikers(taakNaam) {
             return [];
         });
 }
-function gebruikerBijTaakToevoegen(taakNaam) {
-    let url = "http://localhost:8080/restservices/taken/gebruikers/${taakNaam}"
-    let options = {
+function gebruikerBijTaakToevoegen(taakNaam, gebruikerNaam) {
+    const url = `http://localhost:8080/restservices/taken/gebruikers/${taakNaam}`;
+    const options = {
         method: "POST",
         headers: {
             'Content-Type': 'application/json;charset=utf-8',
         },
-        body: JSON.stringify(taakNaam),
+        body: JSON.stringify({ naam: gebruikerNaam }),
     };
-    return fetch(url,options)
+    console.log("Request URL:", url);
+    console.log("Request body:", options.body);
+
+    return fetch(url, options)
         .then(response => {
             if (!response.ok) {
+                if (response.status === 400 ) {
+                    throw new Error('Bad Request: Request body must contain gebruiker field or gebruiker field must be non-empty.');
+                }
+                if (response.status === 404) {
+                    throw new Error('Not Found: Taak of gebruiker niet gevonden.')
+                }
+                if (response.status === 409) {
+                    throw new Error('Conflict: Gebruiker is al gekoppeld aan deze taak.');
+                }
                 throw new Error(`HTTP error, status = ${response.status}`);
             }
             return response.json();
         })
         .catch(error => {
-            console.error("error adding gebruikers", error);
+            console.error("Error adding gebruikers:", error);
         });
 }
 export const gebruikerService = {

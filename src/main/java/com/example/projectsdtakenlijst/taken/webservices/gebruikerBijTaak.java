@@ -38,60 +38,61 @@ public class gebruikerBijTaak {
         JsonReader jsonReader = Json.createReader(new StringReader(requestBody));
         JsonObject jsonObject = jsonReader.readObject();
 
-        String gebruiker = jsonObject.getString("gebruiker");
-        String gebruikersnaam = jsonObject.getString("gebruikersNaam");
-        String wachtwoord = jsonObject.getString("wachtwoord");
-        String email = jsonObject.getString("email");
+        String gebruikerNaam = jsonObject.getString("naam");
+
+        if (gebruikerNaam.isEmpty()) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity("Gebruiker field must be non-empty.")
+                    .build();
+        }
 
         List<Taak> taken = alleTaken.getTaak().getTaken();
         Taak gekozenTaak = null;
         for (Taak t : taken) {
-            if(t.getNaam().equals(naam)) {
-               gekozenTaak = t;
+            if (t.getNaam().equals(naam)) {
+                gekozenTaak = t;
+                break;
             }
         }
+
         if (gekozenTaak == null) {
-            // Taak niet gevonden, retourneer 404 Not Found
             return Response.status(Response.Status.NOT_FOUND)
                     .entity("Taak met naam " + naam + " niet gevonden.")
                     .build();
         }
 
-
-        Gebruiker nieuweGebruiker = new Gebruiker(gebruiker, gebruikersnaam, wachtwoord, email); // Je moet hier de juiste parameters invullen
         alleTaken lijst = alleTaken.getTaak();
-        boolean gebruikerBestaat = false;
+
+        // Zoek de gebruiker met de gegeven naam
+        Gebruiker gevondenGebruiker = null;
         for (Gebruiker g : lijst.getGebruikers()) {
-            if (g.getNaam().equals(nieuweGebruiker.getNaam()) && g.getGebruikersNaam().equals(nieuweGebruiker.getGebruikersNaam())
-                    && g.getWachtwoord().equals(nieuweGebruiker.getWachtwoord()) && g.getEmail().equals(nieuweGebruiker.getEmail())) {
-                gebruikerBestaat = true;
+            if (g.getNaam().equals(gebruikerNaam)) {
+                gevondenGebruiker = g;
                 break;
             }
         }
 
-        if (!gebruikerBestaat) {
-            var error = "gebruiker bestaat niet";
-            return Response.status(409).entity(error).build();
+        if (gevondenGebruiker == null) {
+            return Response.status(404).entity("Gebruiker met naam " + gebruikerNaam + " niet gevonden").build();
         }
 
-
-
+        // Controleer of de eigenschappen van gebruiker 'g' gelijk zijn aan 'gevondenGebruiker'
         boolean gebruikerAlBijTaak = false;
-        List<Gebruiker> gebruikersBijTaak = lijst.getGebruikersBijTaak(gekozenTaak);
-        for (Gebruiker g : gebruikersBijTaak) {
-            if (g.getNaam().equals(nieuweGebruiker.getNaam()) && g.getGebruikersNaam().equals(nieuweGebruiker.getGebruikersNaam())
-                    && g.getWachtwoord().equals(nieuweGebruiker.getWachtwoord()) && g.getEmail().equals(nieuweGebruiker.getEmail())) {
+        for (Gebruiker g : lijst.getGebruikersBijTaak(gekozenTaak)) {
+            if (g.getNaam().equals(gevondenGebruiker.getNaam()) &&
+                    g.getGebruikersNaam().equals(gevondenGebruiker.getGebruikersNaam()) &&
+                    g.getWachtwoord().equals(gevondenGebruiker.getWachtwoord()) &&
+                    g.getEmail().equals(gevondenGebruiker.getEmail())) {
                 gebruikerAlBijTaak = true;
                 break;
             }
         }
 
         if (gebruikerAlBijTaak) {
-            var error = "gebruiker is al gekoppeld aan deze taak";
-            return Response.status(409).entity(error).build();
+            return Response.status(409).entity("Gebruiker is al gekoppeld aan deze taak").build();
         } else {
-            lijst.gebruikerToevoegenBijTaak(gekozenTaak, nieuweGebruiker);
-            gebruikersBijTaak = lijst.getGebruikersBijTaak(gekozenTaak);
+            lijst.gebruikerToevoegenBijTaak(gekozenTaak, gevondenGebruiker);
+            List<Gebruiker> gebruikersBijTaak = lijst.getGebruikersBijTaak(gekozenTaak);
             return Response.ok(gebruikersBijTaak).build();
         }
     }
