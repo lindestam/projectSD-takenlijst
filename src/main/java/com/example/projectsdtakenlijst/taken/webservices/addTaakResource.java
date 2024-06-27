@@ -27,12 +27,11 @@ public class addTaakResource {
 
         String taakNaam = jsonObject.getString("naam");
         String omschrijving = jsonObject.getString("omschrijving");
-        String datum = jsonObject.getString("gemaaktOp");
-        String vervalDatum = jsonObject.getString("vervalDatum");
+        String gemaaktOp = jsonObject.getString("gemaaktOp");
         String type = jsonObject.getString("type");
 
         // Check if the fields are empty
-        if (taakNaam.isEmpty() || omschrijving.isEmpty() || datum.isEmpty() || vervalDatum.isEmpty() || type.isEmpty()) {
+        if (taakNaam.isEmpty() || omschrijving.isEmpty() || gemaaktOp.isEmpty() || type.isEmpty()) {
             var error = new AbstractMap.SimpleEntry<>("error", "Fields cannot be empty!");
             return Response.status(400).entity(error).build();
         }
@@ -46,7 +45,7 @@ public class addTaakResource {
         }
 
         alleTaken takenLijst = alleTaken.getTaak();
-        Taak newTaak = takenLijst.addTaak(taakNaam, omschrijving, datum, vervalDatum, type);
+        Taak newTaak = takenLijst.addTaak(taakNaam, omschrijving, gemaaktOp, type);
         if (newTaak == null || taken.contains(newTaak)) {
             var message = new AbstractMap.SimpleEntry<>("message", "Taak zit in de lijst!");
             return Response.status(500).entity(message).build();

@@ -42,7 +42,7 @@ public class updateTaakResource {
                     .build();
         }
         // Maak een nieuwe taak aan met de gegeven naam en de eigenschappen van de oude taak
-        Taak nieuweTaakMetNaam = new Taak(naamTaak, nieuweTaak.getOmschrijving(), nieuweTaak.getGemaaktTijd(), nieuweTaak.getVervalTijd(), nieuweTaak.getType());
+        Taak nieuweTaakMetNaam = new Taak(naamTaak, nieuweTaak.getOmschrijving(), nieuweTaak.getGemaaktOp(), nieuweTaak.getType());
 
         // Update de gegevens van de oude taak met de nieuwe taak
         boolean success = takenLijst.updateTaak(naamTaak, nieuweTaakMetNaam);

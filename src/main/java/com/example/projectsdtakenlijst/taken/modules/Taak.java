@@ -8,15 +8,13 @@ public class Taak {
 
     private String naam;
     private String omschrijving;
-    private String gemaaktTijd;
-    private String vervalTijd;
+    private String gemaaktOp;
     private String type;
 
-    public Taak(String nm, String oms, String gT, String vT, String tp) {
+    public Taak(String nm, String oms, String gO, String tp) {
         naam = nm;
         omschrijving = oms;
-        gemaaktTijd = gT;
-        vervalTijd = vT;
+        gemaaktOp= gO;
         type = tp;
     }
 
@@ -32,17 +30,11 @@ public class Taak {
     public void setOmschrijving(String oms) {
         omschrijving = oms;
     }
-    public String getGemaaktTijd() {
-        return gemaaktTijd;
+    public String getGemaaktOp() {
+        return gemaaktOp;
     }
-    public void setGemaaktTijd(String Gt) {
-        gemaaktTijd = Gt;
-    }
-    public String getVervalTijd() {
-        return vervalTijd;
-    }
-    public void setVervalTijd(String Vt) {
-        vervalTijd = Vt;
+    public void setGemaaktOp(String Gt) {
+        gemaaktOp = Gt;
     }
     public String getType() {
         return type;

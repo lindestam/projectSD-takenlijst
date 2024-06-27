@@ -44,8 +44,8 @@ public class alleTaken {
         afgevinkteTaken.add(taak);
         taken.remove(taak); // Verwijder de taak ook uit de normale takenlijst
     }
-    public Taak addTaak(String naam, String omschrijving, String gemaaktTijd, String vervalTijd, String type) {
-        Taak nieuweTaak = new Taak(naam, omschrijving, gemaaktTijd, vervalTijd, type);
+    public Taak addTaak(String naam, String omschrijving, String gemaaktOp, String type) {
+        Taak nieuweTaak = new Taak(naam, omschrijving, gemaaktOp, type);
         taken.add(nieuweTaak);
         return nieuweTaak;
     }

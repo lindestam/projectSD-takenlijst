@@ -38,7 +38,7 @@ public class PersistenceManager {
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(",");
                 if (data.length == 5) {
-                    Taak taak = tasks.addTaak(data[0], data[1], data[2], data[3], data[4]);
+                    Taak taak = tasks.addTaak(data[0], data[1], data[2], data[3]);
                     if (afgevinkt) {
                         tasks.voegAfgevinkteTaakToe(taak);
                     }
@@ -60,8 +60,8 @@ public class PersistenceManager {
             }
             try (FileWriter writer = new FileWriter(dataFilePath.toFile())) {
                 for (Taak task : taken) {
-                    writer.write(String.join(",", task.getNaam(), task.getOmschrijving(), task.getGemaaktTijd(),
-                            task.getVervalTijd(), task.getType()));
+                    writer.write(String.join(",", task.getNaam(), task.getOmschrijving(), task.getGemaaktOp(),
+                             task.getType()));
                     writer.write("\n");
                 }
             }
