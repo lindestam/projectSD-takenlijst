@@ -71,7 +71,6 @@ function render() {
                 }
                 const addUserButton = clone.querySelector('.voegToeGebruiker');
                 addUserButton.addEventListener("click", gebruikerInput);
-
                 tasksElement.appendChild(clone);
             });
         })
@@ -83,23 +82,27 @@ function addUserToTask(taakElement, gebruikerNaam) {
     const taakName = taakElement.querySelector('.name').textContent;
 
     gebruikerService.gebruikerBijTaakToevoegen(taakName, gebruikerNaam)
-        .then(gebruikersBijTaak => {
-            const gebruikerTaakElement = taakElement.querySelector("#taak-list");
-            const newUserOption = document.createElement("option");
-            newUserOption.textContent = gebruikerNaam;
-            gebruikerTaakElement.appendChild(newUserOption);
+        .then(response => {
+            if (response.status === 200) {
+                const gebruikerTaakElement = taakElement.querySelector("#taak-list");
+                const newUserOption = document.createElement("option");
+                newUserOption.textContent = gebruikerNaam;
+                gebruikerTaakElement.appendChild(newUserOption);
 
-            const inputField = taakElement.querySelector('.gebruikerNaamInput');
-            inputField.style.display = "none";
-            inputField.value = "";
-            taakElement.querySelector('.voegToeGebruiker').textContent = "+";
+                const inputField = taakElement.querySelector('.gebruikerNaamInput');
+                inputField.style.display = "none";
+                inputField.value = "";
+                taakElement.querySelector('.voegToeGebruiker').textContent = "+";
+            } else {
+                console.error("Error adding gebruiker to task:", response.statusText);
+            }
         })
         .catch(error => {
             console.error("Error adding gebruiker to task:", error);
         });
 }
-function gebruikerInput(event) {
-    const button = event.target;
+
+function gebruikerInput(button, taakNaam) {
     const taakElement = button.closest('.taak');
     const inputField = taakElement.querySelector('.gebruikerNaamInput');
 
@@ -108,7 +111,7 @@ function gebruikerInput(event) {
         inputField.addEventListener('keyup', function(event) {
             if (event.key === 'Enter') {
                 const gebruikerNaam = inputField.value.trim();
-                gebruikerBijTaakToevoegenHandler(gebruikerNaam, taakElement.querySelector('.name').textContent)
+                gebruikerBijTaakToevoegenHandler(gebruikerNaam, taakNaam)
                     .then(({ gebruikerBestaat, gebruikerAlGekoppeld }) => {
                         if (gebruikerBestaat && !gebruikerAlGekoppeld) {
                             addUserToTask(taakElement, gebruikerNaam);
@@ -119,24 +122,6 @@ function gebruikerInput(event) {
                     });
             }
         });
-
-        button.addEventListener('click', function() {
-            const gebruikerNaam = inputField.value.trim(); // Trimmen om spaties te verwijderen
-            if (gebruikerNaam === "") {
-                console.log("Gebruiker naam is leeg");
-                return;
-            }
-
-            gebruikerBijTaakToevoegenHandler(gebruikerNaam, taakElement.querySelector('.name').textContent)
-                .then(({ gebruikerBestaat, gebruikerAlGekoppeld }) => {
-                    if (gebruikerBestaat && !gebruikerAlGekoppeld) {
-                        addUserToTask(taakElement, gebruikerNaam);
-                    }
-                })
-                .catch(error => {
-                    console.error("Fout bij het toevoegen van gebruiker aan taak:", error);
-                });
-        });
     } else {
         inputField.style.display = "none";
         button.textContent = "+";
@@ -144,52 +129,28 @@ function gebruikerInput(event) {
 }
 
 function gebruikerBijTaakToevoegenHandler(gebruikerNaam, taakNaam) {
-    let gebruikerBestaat = false;
-    let gebruikerAlGekoppeld = false;
-
     return gebruikerService.getGebruiker()
         .then(gebruikers => {
-            for (let i = 0; i < gebruikers.length; i++) {
-                if (gebruikers[i].naam === gebruikerNaam) {
-                    gebruikerBestaat = true;
-                    break;
-                }
-            }
+            const gebruikerBestaat = gebruikers.some(g => g.naam === gebruikerNaam);
             if (!gebruikerBestaat) {
                 console.log("Gebruiker bestaat niet");
+                return { gebruikerBestaat: false, gebruikerAlGekoppeld: false };
             }
 
-            // Als gebruiker niet bestaat, hoeven we niet verder te gaan met de tweede check
-            if (!gebruikerBestaat) {
-                return {
-                    gebruikerBestaat: false,
-                    gebruikerAlGekoppeld: false
-                };
-            }
-
-            // Als gebruiker wel bestaat, check of gebruiker al gekoppeld is aan de taak
-            return gebruikerService.getTaakGebruikers(taakNaam);
-        })
-        .then(gebruikersTaak => {
-            if (gebruikerBestaat) {
-                for (let i = 0; i < gebruikersTaak.length; i++) {
-                    if (gebruikersTaak[i].naam === gebruikerNaam) {
-                        gebruikerAlGekoppeld = true;
-                        break;
+            return gebruikerService.getTaakGebruikers(taakNaam)
+                .then(gebruikersTaak => {
+                    const gebruikerAlGekoppeld = gebruikersTaak.some(g => g.naam === gebruikerNaam);
+                    if (gebruikerAlGekoppeld) {
+                        console.log("Gebruiker is al gekoppeld aan deze taak");
                     }
-                }
-                if (gebruikerAlGekoppeld) {
-                    console.log("Gebruiker is al gekoppeld aan deze taak");
-                }
-            }
-            return {
-                gebruikerBestaat: gebruikerBestaat,
-                gebruikerAlGekoppeld: gebruikerAlGekoppeld
-            };
+                    return {
+                        gebruikerBestaat: gebruikerBestaat,
+                        gebruikerAlGekoppeld: gebruikerAlGekoppeld
+                    };
+                });
         })
         .catch(error => {
             console.error("Error bij het controleren van gebruiker en koppeling:", error);
-            // Je kunt er hier voor kiezen om de fout door te geven aan de bovenliggende code om af te handelen
             throw error;
         });
 }

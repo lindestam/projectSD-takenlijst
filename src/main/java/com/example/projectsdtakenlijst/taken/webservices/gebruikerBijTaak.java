@@ -77,23 +77,15 @@ public class gebruikerBijTaak {
         }
 
         // Controleer of de eigenschappen van gebruiker 'g' gelijk zijn aan 'gevondenGebruiker'
-        boolean gebruikerAlBijTaak = false;
         for (Gebruiker g : lijst.getGebruikersBijTaak(gekozenTaak)) {
             if (g.getNaam().equals(gevondenGebruiker.getNaam()) &&
                     g.getGebruikersNaam().equals(gevondenGebruiker.getGebruikersNaam()) &&
                     g.getWachtwoord().equals(gevondenGebruiker.getWachtwoord()) &&
                     g.getEmail().equals(gevondenGebruiker.getEmail())) {
-                gebruikerAlBijTaak = true;
-                break;
+                return Response.status(409).entity("Gebruiker is al gekoppeld aan deze taak").build();
             }
         }
-
-        if (gebruikerAlBijTaak) {
-            return Response.status(409).entity("Gebruiker is al gekoppeld aan deze taak").build();
-        } else {
-            lijst.gebruikerToevoegenBijTaak(gekozenTaak, gevondenGebruiker);
-            List<Gebruiker> gebruikersBijTaak = lijst.getGebruikersBijTaak(gekozenTaak);
-            return Response.ok(gebruikersBijTaak).build();
-        }
+        lijst.gebruikerToevoegenBijTaak(gekozenTaak, gevondenGebruiker);
+        return Response.ok("Gebruiker succesvol toegevoegd aan taak.").build();
     }
 }
