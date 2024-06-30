@@ -43,10 +43,4 @@ public class Taak {
         type = tp;
     }
 
-    public static String formatDate(LocalDate date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        return date.format(formatter);
-    }
-
-
 }
