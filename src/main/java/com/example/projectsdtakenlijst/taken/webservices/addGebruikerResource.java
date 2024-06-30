@@ -42,10 +42,6 @@ public class addGebruikerResource {
         }
         alleTaken gebruikersLijst = alleTaken.getTaak();
         Gebruiker newGebruiker = gebruikersLijst.addGebruiker(naamGebruiker, gebruikersNaam, wachtwoord, email);
-        if (gebruikers.contains(newGebruiker)) {
-            var message = new AbstractMap.SimpleEntry<>("message", "gebruiker zit in de lijst!");
-            return Response.status(500).entity(message).build();
-        }
         return Response.ok(newGebruiker).build();
     }
 }
