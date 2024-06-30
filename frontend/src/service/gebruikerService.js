@@ -36,7 +36,7 @@ function addGebruiker(gebruiker) {
             if (!response.ok) {
                 if (response.status === 404) {
                     console.error("Foute email: geen '@' aanwezig");
-                } else if (response.status === 500) {
+                } else if (response.status === 403) {
                     console.error("Wachtwoord moet groter dan 10 tekens zijn");
                 } else if (response.status === 409) {
                     console.error("Gebruiker met dezelfde naam bestaat al!");
