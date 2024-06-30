@@ -21,16 +21,6 @@ function addGebruikers(event) {
     let gebruiker = gebruikers();
     console.log("Verzonden gebruiker: ", gebruiker);
 
-    // Voer validatie uit op email en wachtwoord
-    if (!gebruiker.email.includes("@")) {
-        console.error("Foute email: geen '@' aanwezig");
-        return; // Stop de functie als de validatie niet slaagt
-    }
-    if (gebruiker.wachtwoord.length <= 10) {
-        console.error("Wachtwoord moet groter dan 10 tekens zijn");
-        return; // Stop de functie als de validatie niet slaagt
-    }
-
     // Voeg gebruiker toe via gebruikerService
     gebruikerService.addGebruiker(gebruiker)
         .then((result) => {

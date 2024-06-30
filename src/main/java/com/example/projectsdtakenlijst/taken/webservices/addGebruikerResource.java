@@ -41,11 +41,11 @@ public class addGebruikerResource {
             }
             if (!g.getEmail().contains("@")) {
                 var error = new AbstractMap.SimpleEntry<>("error", "email is niet goed");
-                return Response.status(409).entity(error).build();
+                return Response.status(404).entity(error).build();
             }
             if (g.getWachtwoord().length() <= 10) {
                 var error = new AbstractMap.SimpleEntry<>("error", "wachtwoord mag niet korter dan 10 letters zijn");
-                return Response.status(409).entity(error).build();
+                return Response.status(500).entity(error).build();
             }
         }
         alleTaken gebruikersLijst = alleTaken.getTaak();

@@ -34,6 +34,15 @@ function addGebruiker(gebruiker) {
     return fetch(url, options)
         .then(response => {
             if (!response.ok) {
+                if (response.status === 404) {
+                    console.error("Foute email: geen '@' aanwezig");
+                }
+                if (response.status === 500) {
+                    console.error("Wachtwoord moet groter dan 10 tekens zijn");
+                }
+                if (response.status === 409) {
+                    console.log("gebruiker met dezelfde naam bestaat al!")
+                }
                 throw new Error(`HTTP error, status = ${response.status}`);
             }
             return response.json();
