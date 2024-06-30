@@ -18,19 +18,20 @@ function addGebruikers(event) {
     event.preventDefault();
     let gebruiker = gebruikers();
     console.log("verzonden gebruiker: ", gebruiker);
+    if (!gebruiker.email.includes("@")) {
+        console.error("Foute email: geen '@' aanwezig");
+        return; // Stop de functie als de validatie niet slaagt
+    }
+    if (gebruiker.wachtwoord.length <= 10) {
+        console.error("Wachtwoord moet groter dan 10 letters zijn");
+        return; // Stop de functie als de validatie niet slaagt
+    }
 
     gebruikerService.addGebruiker(gebruiker)
         .then((result) => {
             console.log("Resultaat van toevoegen gebruiker:", result);
-            if (!gebruiker.email.includes("@")) {
-                console.error("Foute email: geen '@' aanwezig");
-            }
-            if (gebruiker.wachtwoord.length <= 10) {
-                console.error("Wachtwoord moet groter dan 10 letters zijn");
-            } else {
-                window.location.href = "/";
-                console.error("User was added successfully.");
-            }
+            window.location.href = "/";
+            console.error("User was added successfully.");
         })
         .catch((error) => {
             console.error("Error adding gebruiker:", error);
