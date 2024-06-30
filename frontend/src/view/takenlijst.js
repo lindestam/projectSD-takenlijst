@@ -132,7 +132,13 @@ function gebruikerInput(event) {
 function gebruikerBijTaakToevoegenHandler(gebruikerNaam, taakNaam) {
     return gebruikerService.getGebruiker()
         .then(gebruikers => {
-            const gebruikerBestaat = gebruikers.some(g => g.naam === gebruikerNaam);
+            let gebruikerBestaat = false;
+            for (let i = 0; i < gebruikers.length; i++) {
+                if (gebruikers[i].naam === gebruikerNaam) {
+                    gebruikerBestaat = true;
+                    break;
+                }
+            }
             if (!gebruikerBestaat) {
                 console.log("Gebruiker bestaat niet");
                 return { gebruikerBestaat: false, gebruikerAlGekoppeld: false };
@@ -140,7 +146,13 @@ function gebruikerBijTaakToevoegenHandler(gebruikerNaam, taakNaam) {
 
             return gebruikerService.getTaakGebruikers(taakNaam)
                 .then(gebruikersTaak => {
-                    const gebruikerAlGekoppeld = gebruikersTaak.some(g => g.naam === gebruikerNaam);
+                    let gebruikerAlGekoppeld = false;
+                    for (let i = 0; i < gebruikersTaak.length; i++) {
+                        if (gebruikersTaak[i].naam === gebruikerNaam) {
+                            gebruikerAlGekoppeld = true;
+                            break;
+                        }
+                    }
                     if (gebruikerAlGekoppeld) {
                         console.log("Gebruiker is al gekoppeld aan deze taak");
                     }
