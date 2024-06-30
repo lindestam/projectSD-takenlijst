@@ -36,12 +36,12 @@ function addGebruiker(gebruiker) {
             if (!response.ok) {
                 if (response.status === 404) {
                     console.error("Foute email: geen '@' aanwezig");
-                }
-                if (response.status === 500) {
+                } else if (response.status === 500) {
                     console.error("Wachtwoord moet groter dan 10 tekens zijn");
-                }
-                if (response.status === 409) {
-                    console.log("gebruiker met dezelfde naam bestaat al!")
+                } else if (response.status === 409) {
+                    console.error("Gebruiker met dezelfde naam bestaat al!");
+                } else if (response.status === 400) {
+                    console.error("Vereiste velden kunnen niet leeg zijn");
                 }
                 throw new Error(`HTTP error, status = ${response.status}`);
             }
