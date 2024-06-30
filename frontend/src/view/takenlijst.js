@@ -83,27 +83,24 @@ function addUserToTask(taakElement, gebruikerNaam) {
 
     gebruikerService.gebruikerBijTaakToevoegen(taakName, gebruikerNaam)
         .then(response => {
-            if (response.status === 200) {
-                const gebruikerTaakElement = taakElement.querySelector("#taak-list");
-                const newUserOption = document.createElement("option");
-                newUserOption.textContent = gebruikerNaam;
-                gebruikerTaakElement.appendChild(newUserOption);
+            const gebruikerTaakElement = taakElement.querySelector("#taak-list");
+            const newUserOption = document.createElement("option");
+            newUserOption.textContent = gebruikerNaam;
+            gebruikerTaakElement.appendChild(newUserOption);
 
-                const inputField = taakElement.querySelector('.gebruikerNaamInput');
-                inputField.style.display = "none";
-                inputField.value = "";
-                taakElement.querySelector('.voegToeGebruiker').textContent = "+";
-            } else {
-                console.error("Error adding gebruiker to task:", response.statusText);
-            }
+            const inputField = taakElement.querySelector('.gebruikerNaamInput');
+            inputField.style.display = "none";
+            inputField.value = "";
+            taakElement.querySelector('.voegToeGebruiker').textContent = "+";
         })
         .catch(error => {
             console.error("Error adding gebruiker to task:", error);
         });
 }
 
-function gebruikerInput(button, taakNaam) {
-    const taakElement = button.closest('.taak');
+function gebruikerInput(event) {
+    const button = event.target;
+    const taakElement = button.closest('.taak'); // Zoek de dichtstbijzijnde parent met class 'taak'
     const inputField = taakElement.querySelector('.gebruikerNaamInput');
 
     if (inputField.style.display === "none") {
@@ -111,6 +108,11 @@ function gebruikerInput(button, taakNaam) {
         inputField.addEventListener('keyup', function(event) {
             if (event.key === 'Enter') {
                 const gebruikerNaam = inputField.value.trim();
+                if (gebruikerNaam === "") {
+                    console.log("Gebruiker naam is leeg");
+                    return;
+                }
+                const taakNaam = taakElement.querySelector('.name').textContent;
                 gebruikerBijTaakToevoegenHandler(gebruikerNaam, taakNaam)
                     .then(({ gebruikerBestaat, gebruikerAlGekoppeld }) => {
                         if (gebruikerBestaat && !gebruikerAlGekoppeld) {
@@ -127,7 +129,6 @@ function gebruikerInput(button, taakNaam) {
         button.textContent = "+";
     }
 }
-
 function gebruikerBijTaakToevoegenHandler(gebruikerNaam, taakNaam) {
     return gebruikerService.getGebruiker()
         .then(gebruikers => {

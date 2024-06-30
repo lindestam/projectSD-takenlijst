@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
 
 public class persistenceGebruiker {
     private static final String DATA_DIRECTORY = "data";
@@ -16,14 +17,12 @@ public class persistenceGebruiker {
     private static final String USER_TASK_DIRECTOR = "data";
     private static final String USER_TASK_FILE = "data/gebruikerTaak.csv";
 
-    public static void loadUsersFromSCV() {
 
-    }
     public static void loadUsersFromFile() {
-        alleTaken alleTakenInstance = alleTaken.getTaak();
+        alleTaken tasks = alleTaken.getTaak();
         Path dataFile = Paths.get(DATA_FILE);
         if (!Files.exists(dataFile)) {
-            System.out.println("CSV-bestand niet gevonden: " + DATA_FILE);
+            System.out.println("CSV-bestand niet gevonden: " + dataFile);
             return;
         }
         try (BufferedReader br = new BufferedReader(new FileReader(DATA_FILE))) {
@@ -31,7 +30,7 @@ public class persistenceGebruiker {
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(",");
                 if (data.length == 4) {
-                    alleTakenInstance.addGebruiker(data[0], data[1], data[2], data[3]);
+                    tasks.addGebruiker(data[0], data[1], data[2], data[3]);
                 } else {
                     System.out.println("Ongeldige regel in CSV: " + line);
                 }
@@ -40,6 +39,42 @@ public class persistenceGebruiker {
             System.out.println("Fout bij het laden van gebruikers: " + e.getMessage());
         }
     }
+
+    public static void loadTaskUsersFromFile() {
+        String fileName = USER_TASK_FILE; // Definieer het bestandsnaam
+        alleTaken tasks = alleTaken.getTaak();
+        Path dataFile = Paths.get(fileName);
+        if (!Files.exists(dataFile)) {
+            System.out.println("CSV-bestand niet gevonden: " + fileName);
+            return;
+        }
+        try (BufferedReader br = Files.newBufferedReader(dataFile)) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(",");
+                if (data.length == 5) { // Er moeten 5 velden zijn: naam, gebruikersNaam, wachtwoord, email, taakNaam
+                    Gebruiker gebruiker = tasks.addGebruiker(data[0], data[1], data[2], data[3]);
+                    Taak taak = null;
+                    for (Taak t : tasks.getTaken()) {
+                        if (t.getNaam().equals(data[4])) {
+                            taak = t;
+                            break;
+                        }
+                    }
+                    if (taak != null) {
+                        tasks.gebruikerToevoegenBijTaak(taak, gebruiker);
+                    } else {
+                        System.out.println("Taak niet gevonden voor gebruiker: " + line);
+                    }
+                } else {
+                    System.out.println("Ongeldige regel in CSV: " + line);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Fout bij het laden van taak-gebruikers: " + e.getMessage());
+        }
+    }
+
 
     public static void saveUsersToFile() {
         alleTaken alleTakenInstance = alleTaken.getTaak();
@@ -65,4 +100,34 @@ public class persistenceGebruiker {
             System.out.println("Fout bij het opslaan van gebruikers: " + e.getMessage());
         }
     }
+    public static void saveTaskUsersToFile() {
+        alleTaken tasks = alleTaken.getTaak(); // Haal de instantie van alleTaken op
+        Path dataFilePath = Paths.get(USER_TASK_FILE);
+        Path dataDirectoryPath = Paths.get(USER_TASK_DIRECTOR);
+        try {
+            if (!Files.exists(dataDirectoryPath)) {
+                Files.createDirectories(dataDirectoryPath);
+            }
+            try (BufferedWriter writer = Files.newBufferedWriter(dataFilePath)) {
+                for (Taak taak : tasks.getTaken()) {
+                    List<Gebruiker> gebruikers = tasks.getGebruikersBijTaak(taak);
+                    for (Gebruiker gebruiker : gebruikers) {
+                        writer.write(String.join(",",
+                                gebruiker.getNaam(),
+                                gebruiker.getGebruikersNaam(),
+                                gebruiker.getWachtwoord(),
+                                gebruiker.getEmail(),
+                                taak.getNaam()));
+                        writer.write("\n");
+                    }
+                }
+            } catch (IOException e) {
+                System.out.println("Fout bij het opslaan van taak-gebruikers: " + e.getMessage());
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 }
