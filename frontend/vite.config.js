@@ -5,6 +5,7 @@ export default defineConfig({
         sourcemap: true,
         rollupOptions:{
             input: {
+                inloggen: resolve(__dirname, 'inloggen.html'),
                 main: resolve(__dirname, 'index.html'),
                 addTask: resolve(__dirname, 'addTask.html'),
                 addGebruiker: resolve(__dirname, 'addGebruiker.html')
