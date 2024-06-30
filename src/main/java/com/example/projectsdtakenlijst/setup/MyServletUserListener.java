@@ -13,12 +13,14 @@ public class MyServletUserListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
         System.out.println("Applicatie is begonnen, gebruikers worden geladen.");
         persistenceGebruiker.loadUsersFromFile();
+        persistenceGebruiker.loadTaskUsersFromFile();
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
         System.out.println("Applicatie wordt afgesloten, gebruikers worden opgeslagen.");
         persistenceGebruiker.saveUsersToFile();
+        persistenceGebruiker.saveTaskUsersToFile();
     }
 }
 
