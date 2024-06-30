@@ -53,7 +53,7 @@ public class persistenceGebruiker {
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(",");
                 if (data.length == 5) { // Er moeten 5 velden zijn: naam, gebruikersNaam, wachtwoord, email, taakNaam
-                    Gebruiker gebruiker = tasks.addGebruiker(data[0], data[1], data[2], data[3]);
+                    Gebruiker gebruiker = new Gebruiker(data[0], data[1], data[2], data[3]);
                     Taak taak = null;
                     for (Taak t : tasks.getTaken()) {
                         if (t.getNaam().equals(data[4])) {

@@ -21,6 +21,7 @@ public class MyServletUserListener implements ServletContextListener {
         System.out.println("Applicatie wordt afgesloten, gebruikers worden opgeslagen.");
         persistenceGebruiker.saveUsersToFile();
         persistenceGebruiker.saveTaskUsersToFile();
+
     }
 }
 
