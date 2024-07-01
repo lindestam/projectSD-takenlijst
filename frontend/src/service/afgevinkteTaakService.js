@@ -1,5 +1,5 @@
 function getAfgevinkteTaken() {
-    let url = "http://localhost:8080/restservices/completed"
+    let url = "restservices/completed"
     return fetch(url)
         .then (response => {
             return response.json()
@@ -21,7 +21,7 @@ function getAfgevinkteTaken() {
         })
 }
 function updateAfgevinkteTaak(completedTask) {
-    let url = `http://localhost:8080/restservices/completed/${completedTask.naam}`;
+    let url = `restservices/completed/${completedTask.naam}`;
     let options = {
         method: "PUT",
         body: JSON.stringify(completedTask),
