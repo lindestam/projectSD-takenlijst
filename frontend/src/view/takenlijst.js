@@ -1,10 +1,6 @@
 import { taakService } from '../service/taakService.js';
 import {gebruikerService} from "../service/gebruikerService.js";
 
-function showDialog() {
-    // Placeholder for showDialog functionality if needed
-}
-
 // Function to handle the delete task event
 function deleteTask(event) {
     const button = event.target;

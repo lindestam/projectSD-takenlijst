@@ -1,6 +1,6 @@
 
 function getTaken() {
-    return fetch("http://localhost:8080/restservices/taken")
+    return fetch("restservices/taken")
         .then(response => {
             return response.json().then(data => ({
                 status: response.status,
@@ -24,7 +24,7 @@ function getTaken() {
 
 // Function to add a task
 function addTaken(taak) {
-    const url = "http://localhost:8080/restservices/addTaak";
+    const url = "restservices/addTaak";
     const options = {
         method: 'POST',
         headers: {
@@ -47,7 +47,7 @@ function addTaken(taak) {
 
 // Function to update a task
 function updateTaak(taak) {
-    const url = `http://localhost:8080/restservices/update/${taak.naam}`;
+    const url = `restservices/update/${taak.naam}`;
     const options = {
         method: "PUT",
         headers: { 'Content-Type': 'application/json' },
@@ -72,7 +72,7 @@ function updateTaak(taak) {
 
 // Function to delete a task
 function deleteTaak(taak) {
-    const url = `http://localhost:8080/restservices/taken/${encodeURIComponent(taak.naam)}`;
+    const url = `restservices/taken/${encodeURIComponent(taak.naam)}`;
     const options = {
         method: "DELETE",
     };

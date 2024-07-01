@@ -1,5 +1,5 @@
 function getGebruiker() {
-   return fetch("http://localhost:8080/restservices/gebruiker")
+   return fetch("restservices/gebruiker")
        .then(response => {
            return response.json().then(data => ({
                status: response.status,
@@ -22,7 +22,7 @@ function getGebruiker() {
 }
 
 function addGebruiker(gebruiker) {
-    let url = "http://localhost:8080/restservices/addgebruiker";
+    let url = "restservices/addgebruiker";
     let options = {
         method: "POST",
         headers: {
@@ -43,7 +43,7 @@ function addGebruiker(gebruiker) {
         });
 }
 function getTaakGebruikers(taakNaam) {
-    let url = `http://localhost:8080/restservices/taken/${taakNaam}`;
+    let url = `restservices/taken/${taakNaam}`;
     return fetch(url)
         .then(response => response.json())
         .then(data => data)
@@ -53,7 +53,7 @@ function getTaakGebruikers(taakNaam) {
         });
 }
 function gebruikerBijTaakToevoegen(taakNaam, gebruikerNaam) {
-    const url = `http://localhost:8080/restservices/taken/gebruikers/${taakNaam}`;
+    const url = `restservices/taken/gebruikers/${taakNaam}`;
     const options = {
         method: "POST",
         headers: {
